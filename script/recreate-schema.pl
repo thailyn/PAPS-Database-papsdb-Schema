@@ -6,13 +6,12 @@ use DBIx::Class::Schema::Loader qw/ make_schema_at /;
 make_schema_at(
     'PAPS::Database::papsdb::Schema',
     { debug => 1,
-      #dump_directory => './lib/PAPS/Database/papsdb',
       dump_directory => './lib',
       naming => 'v7',
       components => [ 'InflateColumn::DateTime', 'TimeStamp', 'EncodedColumn', ],
       use_moose => 1,
     },
     [ 'dbi:Pg:dbname="papsdb"', 'papsuser', '',
-       { }, #{ loader_class => 'MyLoader' } # optionally
+       { },
     ],
 );
