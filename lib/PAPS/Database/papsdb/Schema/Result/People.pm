@@ -109,5 +109,88 @@ __PACKAGE__->has_many(
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
+
+=head2 works
+
+Type: many_to_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::WorkAuthor>
+
+=cut
+
+# many_to_many():
+#   args:
+#     1) Name of relationship, DBIC will create accessor with this name
+#     2) Name of has_many() relationship this many_to_many() is shortcut for
+#     3) Name of belongs_to() relationship in model class of has_many() above
+#   You must already have the has_many() defined to use a many_to_many().
+__PACKAGE__->many_to_many(works => 'work_authors', 'work_id');
+
+# Helper methods
+
+=head2 display_name
+
+Returns a string suitable to represent the essence of this object.
+
+=cut
+
+sub display_name {
+    my ($self) = @_;
+
+    return $self->full_name();
+}
+
+=head2 full_name
+
+Returns the full name of a person, including his middle name, if it exists.
+
+=cut
+
+sub full_name {
+    my ($self) = @_;
+
+    my $name;
+    $name = $self->first_name . ' ';
+    $name .= $self->middle_name . ' ' if defined $self->middle_name;
+    $name .= $self->last_name;
+    return $name;
+}
+
+
+=head2 work_count
+
+Return the number of works the current person was an author for.
+
+=cut
+
+sub work_count {
+    my ($self) = @_;
+
+    # This uses the many-to-many relationship to get all of the authors for the current
+    # person, and uses the 'count' method in DBIx::Class::ResultSet to get an SQL COUNT.
+    return $self->works->count;
+}
+
+
+=head2 work_list
+
+Return a comma-separated list of works the current person was an author for.
+
+=cut
+
+sub work_list {
+    my ($self) = @_;
+
+    # Loop through all works for the current person, calling the 'display_name' method
+    # on each to get the name to use.
+    my @names;
+    foreach my $work ($self->works) {
+        push(@names, $work->display_name);
+    }
+
+    return join(', ', @names);
+}
+
+
 __PACKAGE__->meta->make_immutable;
 1;
