@@ -6,6 +6,16 @@
 -- Including the -W argument makes entering a password required.
 
 -- Drop any tables if they already exist.
+DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS groups CASCADE;
+DROP TABLE IF EXISTS permissions CASCADE;
+DROP TABLE IF EXISTS group_users CASCADE;
+DROP TABLE IF EXISTS group_groups CASCADE;
+DROP TABLE IF EXISTS user_permissions CASCADE;
+DROP TABLE IF EXISTS group_permissions CASCADE;
+DROP TABLE IF EXISTS user_permissions_flat CASCADE;
+DROP TABLE IF EXISTS group_permissions_flat CASCADE;
+
 DROP TABLE IF EXISTS metaworks CASCADE;
 DROP TABLE IF EXISTS work_types CASCADE;
 DROP TABLE IF EXISTS works CASCADE;
@@ -13,9 +23,76 @@ DROP TABLE IF EXISTS people CASCADE;
 DROP TABLE IF EXISTS work_authors CASCADE;
 DROP TABLE IF EXISTS reference_types CASCADE;
 DROP TABLE IF EXISTS work_references CASCADE;
+DROP TABLE IF EXISTS files CASCADE;
+DROP TABLE IF EXISTS sources CASCADE;
+DROP TABLE IF EXISTS work_sources CASCADE;
+DROP TABLE IF EXISTS source_files CASCADE;
 
 -- Create the tables.  Required to, of course, create tables that are
 -- referenced before the tables that reference them.
+
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  name varchar NOT NULL,
+  password_hash varchar NULL,
+  first_name varchar NULL,
+  middle_name varchar NULL,
+  last_name varchar NULL,
+  email varchar NULL,
+  date_created timestamp without time zone NOT NULL,
+  is_active boolean NOT NULL,
+  CONSTRAINT unique__users__name UNIQUE(name)
+);
+
+CREATE TABLE groups (
+  id SERIAL PRIMARY KEY,
+  name varchar NOT NULL,
+  description varchar NULL,
+  CONSTRAINT unique__groups__name UNIQUE(name)
+);
+
+CREATE TABLE permissions (
+  id SERIAL PRIMARY KEY,
+  name varchar NOT NULL,
+  description varchar NULL,
+  CONSTRAINT unique__permissions__name UNIQUE(name)
+);
+
+CREATE TABLE group_users (
+  group_id int NOT NULL REFERENCES groups(id),
+  user_id int NOT NULL REFERENCES users(id),
+  PRIMARY KEY(group_id, user_id)
+);
+
+CREATE TABLE group_groups (
+  parent_group_id int NOT NULL REFERENCES groups(id),
+  member_group_id int NOT NULL REFERENCES groups(id),
+  PRIMARY KEY(parent_group_id, member_group_id)
+);
+
+CREATE TABLE user_permissions (
+  user_id int NOT NULL REFERENCES users(id),
+  permission_id int NOT NULL REFERENCES permissions(id),
+  PRIMARY KEY(user_id, permission_id)
+);
+
+CREATE TABLE group_permissions (
+  group_id int NOT NULL REFERENCES groups(id),
+  permission_id int NOT NULL REFERENCES permissions(id),
+  PRIMARY KEY(group_id, permission_id)
+);
+
+/*
+CREATE TABLE user_permissions_flat (
+  -- TODO
+);
+*/
+
+/*
+CREATE TABLE group_permissions_flat (
+  -- TODO
+);
+*/
 
 -- The metaworks table serves as a link between different works that
 -- represent the same overal "work."  For example, two different editions of
@@ -60,7 +137,8 @@ CREATE TABLE work_authors (
 CREATE SEQUENCE reference_types_id_seq;
 CREATE TABLE reference_types (
   id smallint DEFAULT nextval('reference_types_id_seq') PRIMARY KEY,
-  name varchar NOT NULL UNIQUE
+  name varchar NOT NULL,
+  CONSTRAINT unique__reference_types__name UNIQUE(name)
 );
 ALTER SEQUENCE reference_types_id_seq OWNED BY reference_types.id;
 
@@ -71,7 +149,54 @@ CREATE TABLE work_references ( -- or, 'citations'
   reference_type_id smallint NOT NULL REFERENCES reference_types (id),
   rank smallint NOT NULL,
   chapter smallint NULL,
-  reference_text text NULL
+  reference_text text NULL,
+  CONSTRAINT unique__work_references__referenced_referencing_type UNIQUE(referencing_work_id, referenced_work_id, reference_type_id)
+);
+
+CREATE TABLE files (
+  id SERIAL PRIMARY KEY,
+  work_id int NOT NULL REFERENCES works(work_id),
+  file_type varchar NOT NULL,
+  file_size int NULL,
+  description varchar NULL,
+  --encoding varchar,
+  --url varchar,
+  path varchar NULL, -- if file is stored in the file system
+  contents bytea NULL, -- if file is stored in the database itself
+  user_permission_id int NULL REFERENCES permissions(id) -- null could indicate no required permission
+  --free_access boolean,
+  --CONSTRAINT unique__files__work_id_source_id_file_type UNIQUE(work_id, source_id, file_type)
+);
+
+CREATE TABLE sources (
+  id SERIAL PRIMARY KEY,
+  name_short varchar(10) NOT NULL,
+  name varchar NOT NULL,
+  description varchar NULL,
+  url varchar NULL,
+  has_accounts boolean NULL,
+  free_accounts boolean NULL,
+  CONSTRAINT unique__sources__name_short UNIQUE(name_short),
+  CONSTRAINT unique__sources__name UNIQUE(name),
+  CONSTRAINT unique__sources__url UNIQUE(url)
+);
+
+CREATE TABLE work_sources (
+  id SERIAL PRIMARY KEY,
+  work_id int NOT NULL REFERENCES works(work_id),
+  source_id int NOT NULL REFERENCES sources(id),
+  url varchar NULL
+);
+
+CREATE TABLE source_files (
+  id SERIAL PRIMARY KEY,
+  source_id int NOT NULL REFERENCES sources(id),
+  file_id int NOT NULL REFERENCES files(id),
+  url varchar NULL,
+  parent_url varchar NULL,
+  --publically_available boolean NULL,
+  CONSTRAINT unique__source_files__source_id_file_id UNIQUE(source_id, file_id),
+  CONSTRAINT unique__source_files___url UNIQUE(url)
 );
 
 -- Populate the tables with some example data.
