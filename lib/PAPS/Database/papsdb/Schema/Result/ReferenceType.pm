@@ -54,7 +54,7 @@ __PACKAGE__->add_columns(
   },
 );
 __PACKAGE__->set_primary_key("id");
-__PACKAGE__->add_unique_constraint("reference_types_name_key", ["name"]);
+__PACKAGE__->add_unique_constraint("unique__reference_types__name", ["name"]);
 
 =head1 RELATIONS
 
@@ -74,8 +74,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-06-04 17:33:06
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:3MSGiml74t1elpVwMnI4Ag
+# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-06-12 13:38:59
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:H+3clEK8xabFwcUWjpyntA
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
