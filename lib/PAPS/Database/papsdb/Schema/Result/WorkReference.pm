@@ -87,6 +87,14 @@ __PACKAGE__->add_columns(
   { data_type => "text", is_nullable => 1 },
 );
 __PACKAGE__->set_primary_key("id");
+__PACKAGE__->add_unique_constraint(
+  "unique__work_references__referenced_referencing_type",
+  [
+    "referencing_work_id",
+    "referenced_work_id",
+    "reference_type_id",
+  ],
+);
 
 =head1 RELATIONS
 
@@ -141,8 +149,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-06-04 17:33:06
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:cm9ytD7EkKMwCzxY3HFdwQ
+# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-06-12 13:38:59
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:DH2wjdwRtg1RVKj1lqYsiw
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
