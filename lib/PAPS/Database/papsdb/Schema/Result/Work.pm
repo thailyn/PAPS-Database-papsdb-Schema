@@ -111,6 +111,21 @@ __PACKAGE__->set_primary_key("work_id");
 
 =head1 RELATIONS
 
+=head2 files
+
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::File>
+
+=cut
+
+__PACKAGE__->has_many(
+  "files",
+  "PAPS::Database::papsdb::Schema::Result::File",
+  { "foreign.work_id" => "self.work_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 work_authors
 
 Type: has_many
@@ -191,9 +206,24 @@ __PACKAGE__->belongs_to(
   },
 );
 
+=head2 work_sources
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-06-04 17:33:06
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:pRNg4XjmLvT5kKp788tlXA
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::WorkSource>
+
+=cut
+
+__PACKAGE__->has_many(
+  "work_sources",
+  "PAPS::Database::papsdb::Schema::Result::WorkSource",
+  { "foreign.work_id" => "self.work_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-06-12 13:38:59
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:SaC0rWR4eaNxaVGJNbuqcw
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
