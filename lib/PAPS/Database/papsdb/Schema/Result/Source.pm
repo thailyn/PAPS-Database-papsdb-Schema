@@ -157,6 +157,20 @@ __PACKAGE__->many_to_many(files => 'source_files', 'file',
                               '+as' => 'file_parent_url',
                           });
 
+=head2 works
+
+Type: many_to_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::Work>
+
+=cut
+
+__PACKAGE__->many_to_many(works => 'work_sources', 'work',
+                          {
+                              '+select' => 'me.url',
+                              '+as' => 'url',
+                          });
+
 
 =head1 Helper Methods
 

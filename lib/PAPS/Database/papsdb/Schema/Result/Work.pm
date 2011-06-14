@@ -240,6 +240,21 @@ __PACKAGE__->many_to_many(authors => 'work_authors', 'person',
                               '+as' => 'author_position',
                           });
 
+
+=head2 sources
+
+Type: many_to_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::Source>
+
+=cut
+
+__PACKAGE__->many_to_many(sources => 'work_sources', 'source',
+                          {
+                              '+select' => 'me.url',
+                              '+as' => 'url',
+                          });
+
 # Helper methods
 
 =head2 display_name
