@@ -167,5 +167,17 @@ __PACKAGE__->has_many(
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
+
+=head2 sources
+
+Type: many_to_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::File>
+
+=cut
+__PACKAGE__->many_to_many(sources => 'source_files', 'source',
+                          {  });
+
+
 __PACKAGE__->meta->make_immutable;
 1;

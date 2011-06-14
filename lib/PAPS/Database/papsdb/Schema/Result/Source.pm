@@ -141,6 +141,22 @@ __PACKAGE__->has_many(
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:5u2olGMpcGDZpQprYDTrVQ
 
 
+=head2 files
+
+Type: many_to_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::File>
+
+=cut
+
+__PACKAGE__->many_to_many(files => 'source_files', 'file',
+                          {
+                              '+select' => 'me.url',
+                              '+as' => 'file_url',
+                              '+select' => 'me.parent_url',
+                              '+as' => 'file_parent_url',
+                          });
+
 # You can replace this text with custom content, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;
 1;
