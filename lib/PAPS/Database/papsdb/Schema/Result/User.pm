@@ -69,11 +69,14 @@ __PACKAGE__->table("users");
 =head2 date_created
 
   data_type: 'timestamp'
+  default_value: current_timestamp
   is_nullable: 0
+  original: {default_value => \"now()"}
 
 =head2 is_active
 
   data_type: 'boolean'
+  default_value: true
   is_nullable: 0
 
 =cut
@@ -123,9 +126,14 @@ __PACKAGE__->add_columns(
     original    => { data_type => "varchar" },
   },
   "date_created",
-  { data_type => "timestamp", is_nullable => 0 },
+  {
+    data_type     => "timestamp",
+    default_value => \"current_timestamp",
+    is_nullable   => 0,
+    original      => { default_value => \"now()" },
+  },
   "is_active",
-  { data_type => "boolean", is_nullable => 0 },
+  { data_type => "boolean", default_value => \"true", is_nullable => 0 },
 );
 __PACKAGE__->set_primary_key("id");
 __PACKAGE__->add_unique_constraint("unique__users__name", ["name"]);
@@ -163,8 +171,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-06-12 13:38:59
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:YAFtaM1gqfdAvQ44xdIcRg
+# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-06-12 20:44:13
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:rctGBJdbxtG4sCASIxgc9w
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
