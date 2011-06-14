@@ -59,7 +59,7 @@ __PACKAGE__->table("sources");
   data_type: 'boolean'
   is_nullable: 1
 
-=head2 free_accounts
+=head2 paid_membership
 
   data_type: 'boolean'
   is_nullable: 1
@@ -96,7 +96,7 @@ __PACKAGE__->add_columns(
   },
   "has_accounts",
   { data_type => "boolean", is_nullable => 1 },
-  "free_accounts",
+  "paid_membership",
   { data_type => "boolean", is_nullable => 1 },
 );
 __PACKAGE__->set_primary_key("id");
@@ -137,8 +137,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-06-12 13:38:59
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Si1Ly1Uw4ky/0/HRIVUEPQ
+# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-06-12 20:44:13
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:5u2olGMpcGDZpQprYDTrVQ
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
