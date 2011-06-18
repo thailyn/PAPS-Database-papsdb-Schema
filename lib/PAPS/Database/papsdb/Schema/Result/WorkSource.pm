@@ -107,6 +107,19 @@ __PACKAGE__->belongs_to(
 # Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-06-12 13:38:59
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:DZO3HjuqvH/o1kK6YVG3Sg
 
+=head1 Helper Methods
+
+=head2 display_name
+
+Returns a formatted version of this object suitable for display.
+
+=cut
+
+sub display_name {
+    my ($self) = @_;
+
+    return $self->work->display_name . " - " . $self->source->display_name;
+}
 
 # You can replace this text with custom content, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;
