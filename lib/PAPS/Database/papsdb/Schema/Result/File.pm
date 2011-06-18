@@ -201,7 +201,7 @@ Returns a formatted version of the name suitable for display.
 sub display_name {
     my ($self) = @_;
 
-    return $self->work->display_name . ' (' . $self->file_type . ')';
+    return $self->work->display_name . ' (' . $self->file_type->display_name . ')';
 }
 
 
