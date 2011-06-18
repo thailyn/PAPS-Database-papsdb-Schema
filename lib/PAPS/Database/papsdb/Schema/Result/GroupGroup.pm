@@ -81,6 +81,19 @@ __PACKAGE__->belongs_to(
 # Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-06-12 13:38:59
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:D0e+sqwHo7LTnfL2JmpAuw
 
+=head1 Helper Methods
+
+=head2 display_name
+
+Returns a formatted version of this relationship suitable for display.
+
+=cut
+
+sub display_name {
+    my ($self) = @_;
+
+    return $self->parent_group->name . " (Parent) - " . $self->member_group->name . " (Member)";
+}
 
 # You can replace this text with custom content, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;
