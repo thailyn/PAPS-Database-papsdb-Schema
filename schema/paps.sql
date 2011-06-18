@@ -175,7 +175,7 @@ CREATE TABLE sources (
   description varchar NULL,
   url varchar NULL,
   has_accounts boolean NULL,
-  free_accounts boolean NULL,
+  paid_membership boolean NULL,
   CONSTRAINT unique__sources__name_short UNIQUE(name_short),
   CONSTRAINT unique__sources__name UNIQUE(name),
   CONSTRAINT unique__sources__url UNIQUE(url)
