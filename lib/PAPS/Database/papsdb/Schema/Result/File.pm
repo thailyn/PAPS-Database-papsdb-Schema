@@ -36,11 +36,11 @@ __PACKAGE__->table("files");
   is_foreign_key: 1
   is_nullable: 0
 
-=head2 file_type
+=head2 file_type_id
 
-  data_type: 'text'
+  data_type: 'integer'
+  is_foreign_key: 1
   is_nullable: 0
-  original: {data_type => "varchar"}
 
 =head2 file_size
 
@@ -82,12 +82,8 @@ __PACKAGE__->add_columns(
   },
   "work_id",
   { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "file_type",
-  {
-    data_type   => "text",
-    is_nullable => 0,
-    original    => { data_type => "varchar" },
-  },
+  "file_type_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
   "file_size",
   { data_type => "integer", is_nullable => 1 },
   "description",
@@ -146,6 +142,21 @@ __PACKAGE__->belongs_to(
   },
 );
 
+=head2 file_type
+
+Type: belongs_to
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::FileType>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "file_type",
+  "PAPS::Database::papsdb::Schema::Result::FileType",
+  { id => "file_type_id" },
+  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+);
+
 =head2 source_files
 
 Type: has_many
@@ -162,8 +173,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-06-12 13:38:59
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:0+3I1NnNGJ5HoBiwomT9rw
+# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-06-18 19:48:39
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:SfBWOzX86meZcaI2e9b3Vw
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
