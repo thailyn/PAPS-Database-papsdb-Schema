@@ -138,7 +138,7 @@ __PACKAGE__->has_many(
 
 Type: many_to_many
 
-Related object: L<PAPS::Database:papsdb::Schema::Result::Group>
+Related object: L<PAPS::Database::papsdb::Schema::Result::Group>
 
 =cut
 
@@ -149,11 +149,22 @@ __PACKAGE__->many_to_many(member_groups => 'group_groups_member_groups', 'parent
 
 Type: many_to_many
 
-Related object: L<PAPS::Database:papsdb::Schema::Result::Group>
+Related object: L<PAPS::Database::papsdb::Schema::Result::Group>
 
 =cut
 
 __PACKAGE__->many_to_many(parent_groups => 'group_groups_parent_groups', 'member_group',
+                          { });
+
+=head2 permissions
+
+Type: many_to_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::Permission>
+
+=cut
+
+__PACKAGE__->many_to_many(permissions => 'group_permissions', 'permission',
                           { });
 
 =head1 Helper Methods

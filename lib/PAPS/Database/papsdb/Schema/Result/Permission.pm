@@ -119,6 +119,16 @@ __PACKAGE__->has_many(
 # Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-06-12 13:38:59
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:tVEGic8js9NNXk4gqhPlnQ
 
+=head2 groups
+
+Type: many_to_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::Group>
+
+=cut
+
+__PACKAGE__->many_to_many(groups => 'group_permissions', 'group',
+                          { });
 
 # You can replace this text with custom content, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;
