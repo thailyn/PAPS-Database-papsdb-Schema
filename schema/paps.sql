@@ -39,8 +39,8 @@ CREATE TABLE users (
   middle_name varchar NULL,
   last_name varchar NULL,
   email varchar NULL,
-  date_created timestamp without time zone NOT NULL,
-  is_active boolean NOT NULL,
+  date_created timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  is_active boolean NOT NULL DEFAULT TRUE,
   CONSTRAINT unique__users__name UNIQUE(name)
 );
 
