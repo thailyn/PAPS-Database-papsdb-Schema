@@ -185,6 +185,17 @@ Related object: L<PAPS::Database::papsdb::Schema::Result::Group>
 __PACKAGE__->many_to_many(groups => 'group_users', 'group',
                           { });
 
+=head2 permissions
+
+Type: many_to_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::Permission>
+
+=cut
+
+__PACKAGE__->many_to_many(permissions => 'user_permissions', 'permission',
+                          { });
+
 =head1 Helper Methods
 
 =head2 display_name
