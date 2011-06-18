@@ -236,3 +236,34 @@ INSERT INTO work_references (referencing_work_id, referenced_work_id, reference_
 INSERT INTO work_references (referencing_work_id, referenced_work_id, reference_type_id, rank, chapter, reference_text) VALUES (2, null, 1, 2, 1, '[Newell 1956] Newell, A., Shaw, J.C., Simon, H.A "Emperical Explorations of the Logic Theory Machine: A Case Study in Heuristics," in Proceedings of the Western Joint Computer Conference, 1956.');
 INSERT INTO work_references (referencing_work_id, referenced_work_id, reference_type_id, rank, chapter, reference_text) VALUES (2, null, 1, 3, 1, '[Shannon 1950] Shannon, Claude, "Programming a Computer for Playing Chess," _Philisophical Magazine_ 41, 1950.');
 INSERT INTO work_references (referencing_work_id, referenced_work_id, reference_type_id, rank, chapter, reference_text) VALUES (2, null, 1, 1, 2, '[Bouton 1901] "Nim, a game with a complete mathematical theory," Ann, Math, Princeton 3, 35-39, 1901-1902');
+
+INSERT INTO files (work_id, file_type) VALUES (5, 'pdf');
+
+INSERT INTO sources (name_short, name, url, has_accounts, paid_membership) VALUES ('arXiv', 'arXiv.org', 'http://arxiv.org/', TRUE, FALSE);
+INSERT INTO sources (name_short, name, url, has_accounts, paid_membership) VALUES ('ACM', 'ACM Digital Library', 'http://portal.acm.org/', TRUE, FALSE);
+
+INSERT INTO work_sources (work_id, source_id, url) VALUES (5, 2, 'http://portal.acm.org/citation.cfm?id=1514095.1514127&coll=ACM&dl=ACM');
+
+INSERT INTO source_files (source_id, file_id, url, parent_url) VALUES (2, 1, 'https://portal.acm.org/purchase.cfm?id=1514127&CFID=24595362&CFTOKEN=61303909', 'http://portal.acm.org/citation.cfm?id=1514095.1514127&coll=ACM&dl=ACM');
+
+-- SAMPLE USER AND GROUP DATA
+INSERT INTO users (name, password_hash, first_name, middle_name, last_name, email) VALUES ('test user name', 'i am a password', 'test_first', 'test_middle', 'test_last', 'test.email@somewhere.com');
+INSERT INTO users (name, first_name) VALUES ('another test user', 'Bob');
+INSERT INTO users (name, first_name, last_name) VALUES ('Lucky User', 'Mary', 'Jane');
+INSERT INTO users (name, is_active) VALUES ('Naughty User', FALSE);
+
+INSERT INTO groups (name, description) VALUES ('Registered Users', 'Users who are registered.');
+INSERT INTO groups (name, description) VALUES ('Special Users', 'Users who are special.');
+INSERT INTO permissions (name, description) VALUES ('Browse Site', 'Permission to browse the site.');
+INSERT INTO permissions (name, description) VALUES ('Create New Groups', 'Permission to create new groups.');
+
+INSERT INTO group_users (group_id, user_id) VALUES (1, 1);
+INSERT INTO group_users (group_id, user_id) VALUES (1, 2);
+INSERT INTO group_users (group_id, user_id) VALUES (2, 1);
+
+INSERT INTO group_groups (parent_group_id, member_group_id) VALUES (2, 1);
+
+INSERT INTO user_permissions (user_id, permission_id) VALUES (3, 2);
+
+INSERT INTO group_permissions (group_id, permission_id) VALUES (1, 1);
+INSERT INTO group_permissions (group_id, permission_id) VALUES (2, 2);
