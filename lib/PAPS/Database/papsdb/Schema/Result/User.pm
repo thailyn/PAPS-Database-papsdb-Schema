@@ -174,6 +174,17 @@ __PACKAGE__->has_many(
 # Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-06-12 20:44:13
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:rctGBJdbxtG4sCASIxgc9w
 
+=head2 groups
+
+Type: many_to_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::Group>
+
+=cut
+
+__PACKAGE__->many_to_many(groups => 'group_users', 'group',
+                          { });
+
 =head1 Helper Methods
 
 =head2 display_name
