@@ -208,6 +208,7 @@ INSERT INTO works (work_type_id, title, subtitle, edition) VALUES (1, 'Artificia
 INSERT INTO works (work_type_id, title, subtitle, edition) VALUES (1, 'Artificial Intelligence', 'A Systems Approach', 1);
 INSERT INTO works (work_type_id, title, edition, num_references, doi) VALUES (3, 'Takeover Times on Scale-Free Topologies', 1, 33, '10.1145/1276958.1277018'); -- 'http://doi.acm.org/10.1145/1276958.1277018'
 INSERT INTO works (work_type_id, title, edition, doi) VALUES (3, 'Parameterizing pair approximations for takeover dynamics', 1, '10.1145/1388969.1389047');
+INSERT INTO works (work_type_id, title, edition, doi) VALUES (3, 'An affective guide robot in a shopping mall', 1, '10.1145/1514095.1514127');
 
 INSERT INTO people (first_name, last_name) VALUES ('Stuart', 'Russell');
 INSERT INTO people (first_name, last_name) VALUES ('Peter', 'Norvig');
