@@ -134,6 +134,27 @@ __PACKAGE__->has_many(
 # Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-06-12 13:38:59
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:egTnV7WsLkT+JdyLdKZh2w
 
+=head2 member_groups
+
+Type: many_to_many
+
+Related object: L<PAPS::Database:papsdb::Schema::Result::Group>
+
+=cut
+
+__PACKAGE__->many_to_many(member_groups => 'group_groups_member_groups', 'parent_group',
+                          { });
+
+=head2 parent_groups
+
+Type: many_to_many
+
+Related object: L<PAPS::Database:papsdb::Schema::Result::Group>
+
+=cut
+
+__PACKAGE__->many_to_many(parent_groups => 'group_groups_parent_groups', 'member_group',
+                          { });
 
 # You can replace this text with custom content, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;
