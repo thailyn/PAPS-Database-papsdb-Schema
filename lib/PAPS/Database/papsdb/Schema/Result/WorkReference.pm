@@ -152,6 +152,35 @@ __PACKAGE__->belongs_to(
 # Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-06-12 13:38:59
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:DH2wjdwRtg1RVKj1lqYsiw
 
+=head1 Helper Methods
+
+=head2 display_name
+
+Returns a formatted version of this object suitable for display.
+
+=cut
+
+sub display_name {
+    my ($self) = @_;
+
+    my $referenced_text;
+    if ($self->referenced_work_id) {
+        $referenced_text = $self->referenced_work_id;
+    }
+    elsif ($self->reference_text) {
+        if (length $self->reference_text > 33) {
+            $referenced_text = substr($self->reference_text, 0, 30) . '...';
+        }
+        else {
+            $referenced_text = $self->reference_text;
+        }
+    }
+    else {
+        $referenced_text = "Unknown";
+    }
+
+    return $self->referencing_work->display_name . " (Referencing) - " . $referenced_text . " (Referenced)";
+}
 
 # You can replace this text with custom content, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;
