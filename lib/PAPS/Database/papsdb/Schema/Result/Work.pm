@@ -255,6 +255,35 @@ __PACKAGE__->many_to_many(sources => 'work_sources', 'source',
                               '+as' => 'url',
                           });
 
+=head2 referenced_works
+
+Type: many_to_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::Work>
+
+=cut
+
+__PACKAGE__->many_to_many(referenced_works => 'work_references_referenced_works',
+                          'referenced_work',
+                          {
+                              '+select' => [ 'me.reference_type_id', 'me.rank',
+                                             'me.chapter', 'me.reference_text' ],
+                              '+as' => [ 'reference_type_id', 'rank',
+                                         'chapter', 'reference_text' ],
+                          });
+
+=head2 referencing_works
+
+Type: many_to_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::Work>
+
+=cut
+
+__PACKAGE__->many_to_many(referencing_works => 'work_references_referencing_works',
+                          'referencing_work',
+                          { });
+
 # Helper methods
 
 =head2 display_name
