@@ -165,7 +165,7 @@ CREATE TABLE file_types (
 CREATE TABLE files (
   id SERIAL PRIMARY KEY,
   work_id int NOT NULL REFERENCES works(work_id),
-  file_type varchar NOT NULL,
+  file_type_id int NOT NULL REFERENCES file_types(id),
   file_size int NULL,
   description varchar NULL,
   --encoding varchar,
