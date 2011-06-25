@@ -16,7 +16,8 @@ __PACKAGE__->load_namespaces;
 
 # Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-06-04 17:33:06
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:p5rqSP9DjrBwuSNTnz2adQ
-
+our $VERSION = '0.002';
+$VERSION = eval $VERSION;
 
 # You can replace this text with custom content, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;
