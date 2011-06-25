@@ -23,6 +23,7 @@ DROP TABLE IF EXISTS people CASCADE;
 DROP TABLE IF EXISTS work_authors CASCADE;
 DROP TABLE IF EXISTS reference_types CASCADE;
 DROP TABLE IF EXISTS work_references CASCADE;
+DROP TABLE IF EXISTS file_types CASCADE;
 DROP TABLE IF EXISTS files CASCADE;
 DROP TABLE IF EXISTS sources CASCADE;
 DROP TABLE IF EXISTS work_sources CASCADE;
@@ -151,6 +152,14 @@ CREATE TABLE work_references ( -- or, 'citations'
   chapter smallint NULL,
   reference_text text NULL,
   CONSTRAINT unique__work_references__referenced_referencing_type UNIQUE(referencing_work_id, referenced_work_id, reference_type_id)
+);
+
+CREATE TABLE file_types (
+  id SERIAL PRIMARY KEY,
+  extension varchar(10) NOT NULL,
+  name varchar NOT NULL,
+  mime_type varchar(40) NULL,
+  CONSTRAINT unique__file_types__extension_name UNIQUE(extension, name)
 );
 
 CREATE TABLE files (
