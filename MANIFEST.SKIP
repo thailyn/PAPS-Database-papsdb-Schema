@@ -1,0 +1,4 @@
+.git/
+lib/Schema.pm.prev
+schema/*.yaml*
+schema/*.png*
