@@ -246,7 +246,9 @@ INSERT INTO work_references (referencing_work_id, referenced_work_id, reference_
 INSERT INTO work_references (referencing_work_id, referenced_work_id, reference_type_id, rank, chapter, reference_text) VALUES (2, null, 1, 3, 1, '[Shannon 1950] Shannon, Claude, "Programming a Computer for Playing Chess," _Philisophical Magazine_ 41, 1950.');
 INSERT INTO work_references (referencing_work_id, referenced_work_id, reference_type_id, rank, chapter, reference_text) VALUES (2, null, 1, 1, 2, '[Bouton 1901] "Nim, a game with a complete mathematical theory," Ann, Math, Princeton 3, 35-39, 1901-1902');
 
-INSERT INTO files (work_id, file_type) VALUES (5, 'pdf');
+INSERT INTO file_types (extension, name, mime_type) VALUES ('pdf', 'Portable Document Format', 'application/pdf');
+
+INSERT INTO files (work_id, file_type_id) VALUES (5, 1);
 
 INSERT INTO sources (name_short, name, url, has_accounts, paid_membership) VALUES ('arXiv', 'arXiv.org', 'http://arxiv.org/', TRUE, FALSE);
 INSERT INTO sources (name_short, name, url, has_accounts, paid_membership) VALUES ('ACM', 'ACM Digital Library', 'http://portal.acm.org/', TRUE, FALSE);
