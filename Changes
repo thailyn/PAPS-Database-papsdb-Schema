@@ -1,5 +1,17 @@
 Revision history for PAPS-Database-papsdb-Schema
 
+0.002  Sat Jun 25 16:01:11 2011 -0400
+  New features:
+    - Added Result classes for user-, group-, and permissions-related tables.
+    - Added Result classes for source- and file-related tables.
+    - Added many-to-many relationships between new Result classes, as needed.
+    - Added display_name methods for virtually all classes, which are used to
+      create a short, descriptive string for objects of those classes.
+    - Updated schema file to create all of the tables and populate them with
+      sample data.
+    - Added scripts to recreate the Result classes based on the database
+      tables and create a schema diagram from the database.
+
 0.001  2011-06-04 17:53:35 2011 -0400
   New features:
     - Initial version of the PAPS db schema.  Contains Result classes for all
