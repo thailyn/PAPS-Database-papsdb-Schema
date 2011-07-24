@@ -374,6 +374,86 @@ __PACKAGE__->many_to_many(referencing_works => 'work_references_referencing_work
                           'referencing_work',
                           { });
 
+=head2 source_tags
+
+Type: many_to_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::SourceTag>
+
+=cut
+
+__PACKAGE__->many_to_many(source_tags => 'source_work_tags',
+                          'tag',
+                          { });
+
+=head2 tags
+
+Type: many_to_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::WorkTag>
+
+=cut
+
+__PACKAGE__->many_to_many(tags => 'work_tags',
+                          'tag',
+                          { });
+
+=head2 source_categories
+
+Type: many_to_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::SourceCategory>
+
+=cut
+
+__PACKAGE__->many_to_many(source_categories => 'source_work_categories',
+                          'category',
+                          { });
+
+=head2 categories
+
+Type: many_to_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::Category>
+
+=cut
+
+__PACKAGE__->many_to_many(categories => 'work_categories',
+                          'category',
+                          { });
+
+=head2 source_meta_keys
+
+Type: many_to_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::SourceWorkMetaKey>
+
+=cut
+
+__PACKAGE__->many_to_many(source_meta_keys => 'source_work_metas',
+                          'key',
+                          {
+                              '+select' => [ 'me.rank', 'me.value' ],
+                              '+as' => [ 'rank', 'value' ],
+                          });
+
+
+=head2 meta_keys
+
+Type: many_to_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::WorkMetaKey>
+
+=cut
+
+__PACKAGE__->many_to_many(meta_keys => 'work_metas',
+                          'key',
+                          {
+                              '+select' => [ 'me.rank', 'me.value' ],
+                              '+as' => [ 'rank', 'value' ],
+                          });
+
+
 # Helper methods
 
 =head2 display_name

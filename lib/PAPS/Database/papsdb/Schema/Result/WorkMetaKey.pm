@@ -106,5 +106,33 @@ __PACKAGE__->has_many(
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
+
+=head2 works
+
+Type: many_to_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::Work>
+
+=cut
+
+__PACKAGE__->many_to_many(works => 'work_metas',
+                          'work',
+                          {
+                              '+select' => [ 'me.rank', 'me.value' ],
+                              '+as' => [ 'rank', 'value' ],
+                          });
+
+=head2 mapped_source_meta_keys
+
+Type: many_to_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::SourceWorkMetaKey>
+
+=cut
+
+__PACKAGE__->many_to_many(mapped_source_meta_keys => 'meta_keys_mappings',
+                          'source_meta_key',
+                          { });
+
 __PACKAGE__->meta->make_immutable;
 1;

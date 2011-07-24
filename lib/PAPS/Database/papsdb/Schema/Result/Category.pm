@@ -149,5 +149,30 @@ __PACKAGE__->has_many(
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
+
+=head2 works
+
+Type: many_to_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::Work>
+
+=cut
+
+__PACKAGE__->many_to_many(works => 'work_categories',
+                          'work',
+                          { });
+
+=head2 mapped_source_categories
+
+Type: many_to_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::SourceCategory>
+
+=cut
+
+__PACKAGE__->many_to_many(mapped_source_categories => 'category_mappings',
+                          'source_category',
+                          { });
+
 __PACKAGE__->meta->make_immutable;
 1;
