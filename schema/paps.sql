@@ -208,6 +208,166 @@ CREATE TABLE source_files (
   CONSTRAINT unique__source_files___url UNIQUE(url)
 );
 
+-- The "kind" of tag, which is what the source describes it as.
+DROP TABLE IF EXISTS source_tag_types CASCADE;
+DROP SEQUENCE IF EXISTS source_tag_types_id_seq;
+CREATE SEQUENCE source_tag_types_id_seq;
+CREATE TABLE source_tag_types (
+  id smallint DEFAULT nextval('source_tag_types_id_seq') PRIMARY KEY,
+  source_id int NOT NULL REFERENCES sources(id),
+  name varchar NOT NULL,
+  description varchar NULL
+);
+
+DROP TABLE IF EXISTS source_tags CASCADE;
+CREATE TABLE source_tags (
+  id SERIAL PRIMARY KEY,
+  source_id int NOT NULL REFERENCES sources(id),
+  tag_type_id smallint NOT NULL REFERENCES source_tag_types(id),
+  name varchar NOT NULL,
+  description varchar NULL,
+  --parent_tag_id int NULL REFERENCES source_tags(id),
+  CONSTRAINT unique__source_tag_types__name UNIQUE(name)
+);
+
+DROP TABLE IF EXISTS source_work_tags CASCADE;
+CREATE TABLE source_work_tags (
+  work_id int NOT NULL REFERENCES works(work_id),
+  tag_id smallint NOT NULL REFERENCES source_tags(id),
+  PRIMARY KEY(work_id, tag_id)
+);
+
+-- Table of normalized tags.
+DROP TABLE IF EXISTS tags CASCADE;
+CREATE TABLE tags (
+  id SERIAL PRIMARY KEY,
+  name varchar NOT NULL,
+  description varchar NULL,
+  CONSTRAINT unique__tags__name UNIQUE(name)
+);
+
+-- Normalized tags attributed to works
+DROP TABLE IF EXISTS work_tags CASCADE;
+CREATE TABLE work_tags (
+  work_id int NOT NULL REFERENCES works(work_id),
+  tag_id int NOT NULL REFERENCES tags(id),
+  PRIMARY KEY(work_id, tag_id)
+);
+
+-- Maps source tags to tags
+DROP TABLE IF EXISTS tag_mappings CASCADE;
+CREATE TABLE tag_mappings (
+  source_tag_id int NOT NULL REFERENCES source_tags(id),
+  tag_id int NOT NULL REFERENCES tags(id),
+  PRIMARY KEY(source_tag_id, tag_id)
+);
+
+-- The "kind" of category, which is what the source describes it as.
+DROP TABLE IF EXISTS source_category_types CASCADE;
+DROP SEQUENCE IF EXISTS source_category_types_id_seq CASCADE;
+CREATE SEQUENCE source_category_types_id_seq;
+CREATE TABLE source_category_types (
+  id smallint DEFAULT nextval('source_category_types_id_seq') PRIMARY KEY,
+  source_id int NOT NULL REFERENCES sources(id),
+  name varchar NOT NULL,
+  description varchar NULL
+);
+
+DROP TABLE IF EXISTS source_categories CASCADE;
+CREATE TABLE source_categories (
+  id SERIAL PRIMARY KEY,
+  source_id int NOT NULL REFERENCES sources(id),
+  category_type_id smallint NOT NULL REFERENCES source_category_types(id),
+  name varchar NOT NULL,
+  description varchar NULL,
+  parent_category_id int NULL REFERENCES source_categories(id),
+  CONSTRAINT unique__source_category_types__name UNIQUE(name)
+);
+
+DROP TABLE IF EXISTS source_work_categories CASCADE;
+CREATE TABLE source_work_categories (
+  work_id int NOT NULL REFERENCES works(work_id),
+  category_id smallint NOT NULL REFERENCES source_categories(id),
+  PRIMARY KEY(work_id, category_id)
+);
+
+-- Table of normalized categories.
+DROP TABLE IF EXISTS categories CASCADE;
+CREATE TABLE categories (
+  id SERIAL PRIMARY KEY,
+  name varchar NOT NULL,
+  description varchar NULL,
+  parent_category_id int NULL REFERENCES categories(id),
+  CONSTRAINT unique__categories__name UNIQUE(name)
+);
+
+-- Normalized categories attributed to works
+DROP TABLE IF EXISTS work_categories CASCADE;
+CREATE TABLE work_categories (
+  work_id int NOT NULL REFERENCES works(work_id),
+  category_id int NOT NULL REFERENCES categories(id),
+  PRIMARY KEY(work_id, category_id)
+);
+
+-- Maps source categories to categories
+DROP TABLE IF EXISTS category_mappings CASCADE;
+CREATE TABLE category_mappings (
+  source_category_id int NOT NULL REFERENCES source_categories(id),
+  category_id int NOT NULL REFERENCES categories(id),
+  PRIMARY KEY(source_category_id, category_id)
+);
+
+DROP TABLE IF EXISTS source_work_meta_keys CASCADE;
+DROP SEQUENCE IF EXISTS source_work_meta_keys_id_seq CASCADE;
+CREATE SEQUENCE source_work_meta_keys_id_seq;
+CREATE TABLE source_work_meta_keys (
+  id smallint DEFAULT nextval('source_work_meta_keys_id_seq') PRIMARY KEY,
+  source_id int NOT NULL REFERENCES sources(id),
+  name varchar NOT NULL,
+  description varchar NULL,
+  --type varchar NULL,  -- an indicator of what type this data is.  probably should be a FK
+  CONSTRAINT unique__source_work_meta_keys__name_source UNIQUE(name, source_id)
+);
+
+DROP TABLE IF EXISTS source_work_meta CASCADE;
+CREATE TABLE source_work_meta (
+  id SERIAL PRIMARY KEY,
+  work_id int NOT NULL REFERENCES works(work_id),
+  key_id smallint NOT NULL REFERENCES source_work_meta_keys(id),
+  rank smallint NOT NULL DEFAULT 0,
+  value varchar NULL,
+  CONSTRAINT unique__source_work_meta__work_key_rank UNIQUE(work_id, key_id, rank)
+);
+
+DROP TABLE IF EXISTS work_meta_keys CASCADE;
+DROP SEQUENCE IF EXISTS work_meta_keys_id_seq CASCADE;
+CREATE SEQUENCE work_meta_keys_id_seq;
+CREATE TABLE work_meta_keys (
+  id smallint DEFAULT nextval('work_meta_keys_id_seq') PRIMARY KEY,
+  name varchar NOT NULL,
+  description varchar NULL,
+  --type varchar NULL,  -- an indicator of what type this data is.  probably should be a FK
+  CONSTRAINT unique__work_meta_keys__name UNIQUE(name)
+);
+
+DROP TABLE IF EXISTS work_meta CASCADE;
+CREATE TABLE work_meta (
+  id SERIAL PRIMARY KEY,
+  work_id int NOT NULL REFERENCES works(work_id),
+  key_id smallint NOT NULL REFERENCES work_meta_keys(id),
+  rank smallint NOT NULL DEFAULT 0,
+  value varchar NULL,
+  CONSTRAINT unique__work_meta__work_key_rank UNIQUE(work_id, key_id, rank)
+);
+
+-- Maps source meta keys to meta keys
+DROP TABLE IF EXISTS meta_keys_mappings CASCADE;
+CREATE TABLE meta_keys_mappings (
+  source_meta_key_id smallint NOT NULL REFERENCES source_work_meta_keys(id),
+  meta_key_id int NOT NULL REFERENCES work_meta_keys(id),
+  PRIMARY KEY(source_meta_key_id, meta_key_id)
+);
+
 -- Populate the tables with some example data.
 INSERT INTO work_types (work_type) VALUES ('Textbook');
 INSERT INTO work_types (work_type) VALUES ('Book');
