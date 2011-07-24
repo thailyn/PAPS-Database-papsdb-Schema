@@ -126,6 +126,51 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 source_work_categories
+
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::SourceWorkCategory>
+
+=cut
+
+__PACKAGE__->has_many(
+  "source_work_categories",
+  "PAPS::Database::papsdb::Schema::Result::SourceWorkCategory",
+  { "foreign.work_id" => "self.work_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 source_work_metas
+
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::SourceWorkMeta>
+
+=cut
+
+__PACKAGE__->has_many(
+  "source_work_metas",
+  "PAPS::Database::papsdb::Schema::Result::SourceWorkMeta",
+  { "foreign.work_id" => "self.work_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 source_work_tags
+
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::SourceWorkTag>
+
+=cut
+
+__PACKAGE__->has_many(
+  "source_work_tags",
+  "PAPS::Database::papsdb::Schema::Result::SourceWorkTag",
+  { "foreign.work_id" => "self.work_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 work_authors
 
 Type: has_many
@@ -137,6 +182,36 @@ Related object: L<PAPS::Database::papsdb::Schema::Result::WorkAuthor>
 __PACKAGE__->has_many(
   "work_authors",
   "PAPS::Database::papsdb::Schema::Result::WorkAuthor",
+  { "foreign.work_id" => "self.work_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 work_categories
+
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::WorkCategory>
+
+=cut
+
+__PACKAGE__->has_many(
+  "work_categories",
+  "PAPS::Database::papsdb::Schema::Result::WorkCategory",
+  { "foreign.work_id" => "self.work_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 work_metas
+
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::WorkMeta>
+
+=cut
+
+__PACKAGE__->has_many(
+  "work_metas",
+  "PAPS::Database::papsdb::Schema::Result::WorkMeta",
   { "foreign.work_id" => "self.work_id" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
@@ -221,9 +296,24 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 work_tags
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-06-12 13:38:59
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:SaC0rWR4eaNxaVGJNbuqcw
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::WorkTag>
+
+=cut
+
+__PACKAGE__->has_many(
+  "work_tags",
+  "PAPS::Database::papsdb::Schema::Result::WorkTag",
+  { "foreign.work_id" => "self.work_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-07-24 16:54:51
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:cLbjTp2wQdFgBoXoQCJfMw
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

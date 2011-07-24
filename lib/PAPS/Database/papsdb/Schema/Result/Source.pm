@@ -106,6 +106,36 @@ __PACKAGE__->add_unique_constraint("unique__sources__name", ["name"]);
 
 =head1 RELATIONS
 
+=head2 source_categories
+
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::SourceCategory>
+
+=cut
+
+__PACKAGE__->has_many(
+  "source_categories",
+  "PAPS::Database::papsdb::Schema::Result::SourceCategory",
+  { "foreign.source_id" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 source_category_types
+
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::SourceCategoryType>
+
+=cut
+
+__PACKAGE__->has_many(
+  "source_category_types",
+  "PAPS::Database::papsdb::Schema::Result::SourceCategoryType",
+  { "foreign.source_id" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 source_files
 
 Type: has_many
@@ -117,6 +147,51 @@ Related object: L<PAPS::Database::papsdb::Schema::Result::SourceFile>
 __PACKAGE__->has_many(
   "source_files",
   "PAPS::Database::papsdb::Schema::Result::SourceFile",
+  { "foreign.source_id" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 source_tags
+
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::SourceTag>
+
+=cut
+
+__PACKAGE__->has_many(
+  "source_tags",
+  "PAPS::Database::papsdb::Schema::Result::SourceTag",
+  { "foreign.source_id" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 source_tag_types
+
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::SourceTagType>
+
+=cut
+
+__PACKAGE__->has_many(
+  "source_tag_types",
+  "PAPS::Database::papsdb::Schema::Result::SourceTagType",
+  { "foreign.source_id" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 source_work_meta_keys
+
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::SourceWorkMetaKey>
+
+=cut
+
+__PACKAGE__->has_many(
+  "source_work_meta_keys",
+  "PAPS::Database::papsdb::Schema::Result::SourceWorkMetaKey",
   { "foreign.source_id" => "self.id" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
@@ -137,8 +212,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-06-12 20:44:13
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:5u2olGMpcGDZpQprYDTrVQ
+# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-07-24 16:54:51
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:SsFRKVJDbPTr1GGF1PYFxw
 
 
 =head2 files
