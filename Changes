@@ -1,5 +1,11 @@
 Revision history for PAPS-Database-papsdb-Schema
 
+0.003  Sat Aug 6 12:53:36 2011 -0400
+  New features:
+    - Added Result classes for tag-, category- and metadata-related tables.
+      This includes both the "source" and "official" versions of these tables,
+      where appropriate, and mapping tables to relate source to official data.
+
 0.002  Sat Jun 25 16:01:11 2011 -0400
   New features:
     - Added Result classes for user-, group-, and permissions-related tables.
