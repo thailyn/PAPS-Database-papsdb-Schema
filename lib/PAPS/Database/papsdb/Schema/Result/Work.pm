@@ -318,6 +318,49 @@ __PACKAGE__->has_many(
 
 # You can replace this text with custom content, and it will be preserved on regeneration
 
+=head2 work_references_referencing_works
+
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::WorkReference>
+This has_many relationship is being redefined here because the naming that
+DBIx uses relates a relationship specifically with the name of the foreign
+field.  In most cases, that is fine, but here, we need the opposite.  What a
+Work is referenced by (what is referencing it and what, simply from the
+perspective of the reference, is the Work being referenced) should be in its
+list of work_references_referencing_works and, by extension, the
+referencing_works many-to-many relationshipo.
+
+=cut
+
+__PACKAGE__->has_many(
+  "work_references_referencing_works",
+  "PAPS::Database::papsdb::Schema::Result::WorkReference",
+  { "foreign.referenced_work_id" => "self.work_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 work_references_referenced_works
+
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::WorkReference>
+As with the work_references_referencing_works has_many relationship, this
+relationship is being redefined because DBIx has the reverse naming convention
+compared to how it should be, in this case.  What this Work considers a
+referenced Work is what, from the perspective of the reference itself, has
+this Work as the referencing Work.
+
+=cut
+
+__PACKAGE__->has_many(
+  "work_references_referenced_works",
+  "PAPS::Database::papsdb::Schema::Result::WorkReference",
+  { "foreign.referencing_work_id" => "self.work_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
 # many_to_many():
 #   args:
 #     1) Name of relationship, DBIC will create accessor with this name
