@@ -415,7 +415,12 @@ Related object: L<PAPS::Database::papsdb::Schema::Result::Work>
 
 __PACKAGE__->many_to_many(referencing_works => 'work_references_referencing_works',
                           'referencing_work',
-                          { });
+                          {
+                              '+select' => [ 'me.reference_type_id', 'me.rank',
+                                             'me.chapter', 'me.reference_text' ],
+                              '+as' => [ 'reference_type_id', 'rank',
+                                         'chapter', 'reference_text' ],
+                          });
 
 =head2 source_tags
 
