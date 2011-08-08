@@ -1,5 +1,19 @@
 Revision history for PAPS-Database-papsdb-Schema
 
+Next
+  New features:
+    - The referencing_works many-to-many relationship in the Work class now
+      includes the same fields from the work_references table that the
+      referenced_works relationship includes (commit 4b2f7fd9c2).
+  Bug fixes:
+    - The many-to-many relationship works in the People class referenced an
+      incorrect (nonexistent) belongs_to relationship in the Works class
+      (commit 4b2f7fd9c2).
+    - The has-many relationships from Work to WorkReferences did not reflect
+      the correct interpretation for these relationships.  These have been
+      switched, so, for example, now the referenced_works relationship gives
+      the list of works that that Work object references (commit 4e93443f94).
+
 0.003  Sat Aug 6 12:53:36 2011 -0400
   New features:
     - Added Result classes for tag-, category- and metadata-related tables.
