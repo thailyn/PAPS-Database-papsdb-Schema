@@ -261,6 +261,21 @@ sub display_name {
     return $self->name;
 }
 
+
+=head2 work_count
+
+Return the number of works the current source has.
+
+=cut
+
+sub work_count {
+    my ($self) = @_;
+
+    # This uses the many-to-many relationship to get all of the authors for the current
+    # person, and uses the 'count' method in DBIx::Class::ResultSet to get an SQL COUNT.
+    return $self->works->count;
+}
+
 # You can replace this text with custom content, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;
 1;
