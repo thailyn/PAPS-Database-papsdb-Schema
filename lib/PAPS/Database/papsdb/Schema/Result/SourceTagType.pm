@@ -113,5 +113,26 @@ __PACKAGE__->belongs_to(
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
+
+=head1 Helper Methods
+
+=head2 display_name
+
+Returns a formatted version of the name suitable for display.
+
+=cut
+
+sub display_name {
+    my ($self) = @_;
+
+    #my $value = $self->name;
+    #$value .= " (" . $self->source.display_name() . ")";
+    ##my $value = ($self->name() . " (" . ($self->source.display_name() || "Unknown") . ")");
+
+    #return ($self->name . " (" . $self->source.display_name() . ")");
+    return $self->name;
+    #return $value;
+}
+
 __PACKAGE__->meta->make_immutable;
 1;
