@@ -5,6 +5,9 @@ Next
     - The referencing_works many-to-many relationship in the Work class now
       includes the same fields from the work_references table that the
       referenced_works relationship includes (commit 4b2f7fd9c2).
+    - Added display_name methods for the SourceCategory, SourceCategoryType,
+      SourceTag, and SourceTagTypes Result classes.  These, for now, just use
+      the name field as the display name.
   Bug fixes:
     - The many-to-many relationship works in the People class referenced an
       incorrect (nonexistent) belongs_to relationship in the Works class
