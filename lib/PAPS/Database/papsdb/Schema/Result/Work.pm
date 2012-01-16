@@ -89,6 +89,11 @@ __PACKAGE__->table("works");
   is_nullable: 1
   original: {data_type => "varchar"}
 
+=head2 year
+
+  data_type: 'smallint'
+  is_nullable: 1
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -125,6 +130,8 @@ __PACKAGE__->add_columns(
     is_nullable => 1,
     original    => { data_type => "varchar" },
   },
+  "year",
+  { data_type => "smallint", is_nullable => 1 },
 );
 
 =head1 PRIMARY KEY
@@ -382,8 +389,8 @@ Composing rels: L</source_work_tags> -> tag
 __PACKAGE__->many_to_many("tags_2s", "source_work_tags", "tag");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-01-15 22:07:26
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:34aoBj+uzLrYDH9k71LqYA
+# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-01-15 22:35:53
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:oD6B0IDwo46PMvUM/SgRFQ
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

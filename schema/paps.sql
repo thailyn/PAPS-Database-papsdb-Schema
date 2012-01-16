@@ -116,6 +116,7 @@ CREATE TABLE works (
   title varchar NOT NULL,
   subtitle varchar,
   edition smallint,
+  year smallint,
   num_references smallint,
   doi varchar
 );
