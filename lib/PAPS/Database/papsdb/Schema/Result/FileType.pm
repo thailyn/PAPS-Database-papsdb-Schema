@@ -1,21 +1,40 @@
+use utf8;
 package PAPS::Database::papsdb::Schema::Result::FileType;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
+
+=head1 NAME
+
+PAPS::Database::papsdb::Schema::Result::FileType
+
+=cut
 
 use strict;
 use warnings;
 
 use Moose;
 use MooseX::NonMoose;
-use namespace::autoclean;
+use MooseX::MarkAsMethods autoclean => 1;
 extends 'DBIx::Class::Core';
+
+=head1 COMPONENTS LOADED
+
+=over 4
+
+=item * L<DBIx::Class::InflateColumn::DateTime>
+
+=item * L<DBIx::Class::TimeStamp>
+
+=item * L<DBIx::Class::EncodedColumn>
+
+=back
+
+=cut
 
 __PACKAGE__->load_components("InflateColumn::DateTime", "TimeStamp", "EncodedColumn");
 
-=head1 NAME
-
-PAPS::Database::papsdb::Schema::Result::FileType
+=head1 TABLE: C<file_types>
 
 =cut
 
@@ -69,7 +88,33 @@ __PACKAGE__->add_columns(
   "mime_type",
   { data_type => "varchar", is_nullable => 1, size => 40 },
 );
+
+=head1 PRIMARY KEY
+
+=over 4
+
+=item * L</id>
+
+=back
+
+=cut
+
 __PACKAGE__->set_primary_key("id");
+
+=head1 UNIQUE CONSTRAINTS
+
+=head2 C<unique__file_types__extension_name>
+
+=over 4
+
+=item * L</extension>
+
+=item * L</name>
+
+=back
+
+=cut
+
 __PACKAGE__->add_unique_constraint("unique__file_types__extension_name", ["extension", "name"]);
 
 =head1 RELATIONS
@@ -90,8 +135,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-06-18 19:48:39
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:gLFea6g6jtYkqaiwS1rfRw
+# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-01-15 22:01:14
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:hxvK3AtvMhTWQBfy/H9Wvw
 
 =head1 Helper Methods
 

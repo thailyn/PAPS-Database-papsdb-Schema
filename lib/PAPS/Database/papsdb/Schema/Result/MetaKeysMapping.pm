@@ -1,21 +1,40 @@
+use utf8;
 package PAPS::Database::papsdb::Schema::Result::MetaKeysMapping;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
+
+=head1 NAME
+
+PAPS::Database::papsdb::Schema::Result::MetaKeysMapping
+
+=cut
 
 use strict;
 use warnings;
 
 use Moose;
 use MooseX::NonMoose;
-use namespace::autoclean;
+use MooseX::MarkAsMethods autoclean => 1;
 extends 'DBIx::Class::Core';
+
+=head1 COMPONENTS LOADED
+
+=over 4
+
+=item * L<DBIx::Class::InflateColumn::DateTime>
+
+=item * L<DBIx::Class::TimeStamp>
+
+=item * L<DBIx::Class::EncodedColumn>
+
+=back
+
+=cut
 
 __PACKAGE__->load_components("InflateColumn::DateTime", "TimeStamp", "EncodedColumn");
 
-=head1 NAME
-
-PAPS::Database::papsdb::Schema::Result::MetaKeysMapping
+=head1 TABLE: C<meta_keys_mappings>
 
 =cut
 
@@ -43,6 +62,19 @@ __PACKAGE__->add_columns(
   "meta_key_id",
   { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
 );
+
+=head1 PRIMARY KEY
+
+=over 4
+
+=item * L</source_meta_key_id>
+
+=item * L</meta_key_id>
+
+=back
+
+=cut
+
 __PACKAGE__->set_primary_key("source_meta_key_id", "meta_key_id");
 
 =head1 RELATIONS
@@ -78,8 +110,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-07-24 16:54:51
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:BqX6RZdGRXFc0bFiDMEz/w
+# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-01-15 22:01:14
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Oyd9L3qGfKkXNxx/6JcLPg
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

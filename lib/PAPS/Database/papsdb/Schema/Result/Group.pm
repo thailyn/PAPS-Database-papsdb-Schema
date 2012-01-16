@@ -1,21 +1,40 @@
+use utf8;
 package PAPS::Database::papsdb::Schema::Result::Group;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
+
+=head1 NAME
+
+PAPS::Database::papsdb::Schema::Result::Group
+
+=cut
 
 use strict;
 use warnings;
 
 use Moose;
 use MooseX::NonMoose;
-use namespace::autoclean;
+use MooseX::MarkAsMethods autoclean => 1;
 extends 'DBIx::Class::Core';
+
+=head1 COMPONENTS LOADED
+
+=over 4
+
+=item * L<DBIx::Class::InflateColumn::DateTime>
+
+=item * L<DBIx::Class::TimeStamp>
+
+=item * L<DBIx::Class::EncodedColumn>
+
+=back
+
+=cut
 
 __PACKAGE__->load_components("InflateColumn::DateTime", "TimeStamp", "EncodedColumn");
 
-=head1 NAME
-
-PAPS::Database::papsdb::Schema::Result::Group
+=head1 TABLE: C<groups>
 
 =cut
 
@@ -65,7 +84,31 @@ __PACKAGE__->add_columns(
     original    => { data_type => "varchar" },
   },
 );
+
+=head1 PRIMARY KEY
+
+=over 4
+
+=item * L</id>
+
+=back
+
+=cut
+
 __PACKAGE__->set_primary_key("id");
+
+=head1 UNIQUE CONSTRAINTS
+
+=head2 C<unique__groups__name>
+
+=over 4
+
+=item * L</name>
+
+=back
+
+=cut
+
 __PACKAGE__->add_unique_constraint("unique__groups__name", ["name"]);
 
 =head1 RELATIONS
@@ -130,9 +173,49 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 member_groups
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-06-12 13:38:59
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:egTnV7WsLkT+JdyLdKZh2w
+Type: many_to_many
+
+Composing rels: L</group_groups_member_groups> -> member_group
+
+=cut
+
+__PACKAGE__->many_to_many("member_groups", "group_groups_member_groups", "member_group");
+
+=head2 parent_groups
+
+Type: many_to_many
+
+Composing rels: L</group_groups_member_groups> -> parent_group
+
+=cut
+
+__PACKAGE__->many_to_many("parent_groups", "group_groups_member_groups", "parent_group");
+
+=head2 permissions
+
+Type: many_to_many
+
+Composing rels: L</group_permissions> -> permission
+
+=cut
+
+__PACKAGE__->many_to_many("permissions", "group_permissions", "permission");
+
+=head2 users
+
+Type: many_to_many
+
+Composing rels: L</group_users> -> user
+
+=cut
+
+__PACKAGE__->many_to_many("users", "group_users", "user");
+
+
+# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-01-15 22:01:14
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:sh3TeNs9F7TNqosgR7iUkw
 
 =head2 member_groups
 

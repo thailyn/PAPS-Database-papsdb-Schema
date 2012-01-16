@@ -1,21 +1,40 @@
+use utf8;
 package PAPS::Database::papsdb::Schema::Result::WorkMetaKey;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
+
+=head1 NAME
+
+PAPS::Database::papsdb::Schema::Result::WorkMetaKey
+
+=cut
 
 use strict;
 use warnings;
 
 use Moose;
 use MooseX::NonMoose;
-use namespace::autoclean;
+use MooseX::MarkAsMethods autoclean => 1;
 extends 'DBIx::Class::Core';
+
+=head1 COMPONENTS LOADED
+
+=over 4
+
+=item * L<DBIx::Class::InflateColumn::DateTime>
+
+=item * L<DBIx::Class::TimeStamp>
+
+=item * L<DBIx::Class::EncodedColumn>
+
+=back
+
+=cut
 
 __PACKAGE__->load_components("InflateColumn::DateTime", "TimeStamp", "EncodedColumn");
 
-=head1 NAME
-
-PAPS::Database::papsdb::Schema::Result::WorkMetaKey
+=head1 TABLE: C<work_meta_keys>
 
 =cut
 
@@ -65,7 +84,31 @@ __PACKAGE__->add_columns(
     original    => { data_type => "varchar" },
   },
 );
+
+=head1 PRIMARY KEY
+
+=over 4
+
+=item * L</id>
+
+=back
+
+=cut
+
 __PACKAGE__->set_primary_key("id");
+
+=head1 UNIQUE CONSTRAINTS
+
+=head2 C<unique__work_meta_keys__name>
+
+=over 4
+
+=item * L</name>
+
+=back
+
+=cut
+
 __PACKAGE__->add_unique_constraint("unique__work_meta_keys__name", ["name"]);
 
 =head1 RELATIONS
@@ -100,9 +143,19 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 source_meta_keys
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-07-24 16:54:51
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:eTyAR8/vJ5zujhfH0z+sYA
+Type: many_to_many
+
+Composing rels: L</meta_keys_mappings> -> source_meta_key
+
+=cut
+
+__PACKAGE__->many_to_many("source_meta_keys", "meta_keys_mappings", "source_meta_key");
+
+
+# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-01-15 22:01:15
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:n/ojIWWAM8epUBykYpZ1GA
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

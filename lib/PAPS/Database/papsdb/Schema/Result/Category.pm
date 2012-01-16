@@ -1,21 +1,40 @@
+use utf8;
 package PAPS::Database::papsdb::Schema::Result::Category;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
+
+=head1 NAME
+
+PAPS::Database::papsdb::Schema::Result::Category
+
+=cut
 
 use strict;
 use warnings;
 
 use Moose;
 use MooseX::NonMoose;
-use namespace::autoclean;
+use MooseX::MarkAsMethods autoclean => 1;
 extends 'DBIx::Class::Core';
+
+=head1 COMPONENTS LOADED
+
+=over 4
+
+=item * L<DBIx::Class::InflateColumn::DateTime>
+
+=item * L<DBIx::Class::TimeStamp>
+
+=item * L<DBIx::Class::EncodedColumn>
+
+=back
+
+=cut
 
 __PACKAGE__->load_components("InflateColumn::DateTime", "TimeStamp", "EncodedColumn");
 
-=head1 NAME
-
-PAPS::Database::papsdb::Schema::Result::Category
+=head1 TABLE: C<categories>
 
 =cut
 
@@ -73,30 +92,34 @@ __PACKAGE__->add_columns(
   "parent_category_id",
   { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
 );
-__PACKAGE__->set_primary_key("id");
-__PACKAGE__->add_unique_constraint("unique__categories__name", ["name"]);
 
-=head1 RELATIONS
+=head1 PRIMARY KEY
 
-=head2 parent_category
+=over 4
 
-Type: belongs_to
+=item * L</id>
 
-Related object: L<PAPS::Database::papsdb::Schema::Result::Category>
+=back
 
 =cut
 
-__PACKAGE__->belongs_to(
-  "parent_category",
-  "PAPS::Database::papsdb::Schema::Result::Category",
-  { id => "parent_category_id" },
-  {
-    is_deferrable => 1,
-    join_type     => "LEFT",
-    on_delete     => "CASCADE",
-    on_update     => "CASCADE",
-  },
-);
+__PACKAGE__->set_primary_key("id");
+
+=head1 UNIQUE CONSTRAINTS
+
+=head2 C<unique__categories__name>
+
+=over 4
+
+=item * L</name>
+
+=back
+
+=cut
+
+__PACKAGE__->add_unique_constraint("unique__categories__name", ["name"]);
+
+=head1 RELATIONS
 
 =head2 categories
 
@@ -128,6 +151,26 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 parent_category
+
+Type: belongs_to
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::Category>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "parent_category",
+  "PAPS::Database::papsdb::Schema::Result::Category",
+  { id => "parent_category_id" },
+  {
+    is_deferrable => 1,
+    join_type     => "LEFT",
+    on_delete     => "CASCADE",
+    on_update     => "CASCADE",
+  },
+);
+
 =head2 work_categories
 
 Type: has_many
@@ -143,9 +186,29 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 source_categories
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-07-24 16:54:51
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:I2AiyUXWIgPYSRlcRWjENw
+Type: many_to_many
+
+Composing rels: L</category_mappings> -> source_category
+
+=cut
+
+__PACKAGE__->many_to_many("source_categories", "category_mappings", "source_category");
+
+=head2 works
+
+Type: many_to_many
+
+Composing rels: L</work_categories> -> work
+
+=cut
+
+__PACKAGE__->many_to_many("works", "work_categories", "work");
+
+
+# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-01-15 22:01:14
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:aJ5xUtSE1lhnnvKLCQ8UNQ
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

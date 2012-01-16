@@ -1,21 +1,40 @@
+use utf8;
 package PAPS::Database::papsdb::Schema::Result::SourceTag;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
+
+=head1 NAME
+
+PAPS::Database::papsdb::Schema::Result::SourceTag
+
+=cut
 
 use strict;
 use warnings;
 
 use Moose;
 use MooseX::NonMoose;
-use namespace::autoclean;
+use MooseX::MarkAsMethods autoclean => 1;
 extends 'DBIx::Class::Core';
+
+=head1 COMPONENTS LOADED
+
+=over 4
+
+=item * L<DBIx::Class::InflateColumn::DateTime>
+
+=item * L<DBIx::Class::TimeStamp>
+
+=item * L<DBIx::Class::EncodedColumn>
+
+=back
+
+=cut
 
 __PACKAGE__->load_components("InflateColumn::DateTime", "TimeStamp", "EncodedColumn");
 
-=head1 NAME
-
-PAPS::Database::papsdb::Schema::Result::SourceTag
+=head1 TABLE: C<source_tags>
 
 =cut
 
@@ -81,25 +100,34 @@ __PACKAGE__->add_columns(
     original    => { data_type => "varchar" },
   },
 );
-__PACKAGE__->set_primary_key("id");
-__PACKAGE__->add_unique_constraint("unique__source_tag_types__name", ["name"]);
 
-=head1 RELATIONS
+=head1 PRIMARY KEY
 
-=head2 tag_type
+=over 4
 
-Type: belongs_to
+=item * L</id>
 
-Related object: L<PAPS::Database::papsdb::Schema::Result::SourceTagType>
+=back
 
 =cut
 
-__PACKAGE__->belongs_to(
-  "tag_type",
-  "PAPS::Database::papsdb::Schema::Result::SourceTagType",
-  { id => "tag_type_id" },
-  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
-);
+__PACKAGE__->set_primary_key("id");
+
+=head1 UNIQUE CONSTRAINTS
+
+=head2 C<unique__source_tag_types__name>
+
+=over 4
+
+=item * L</name>
+
+=back
+
+=cut
+
+__PACKAGE__->add_unique_constraint("unique__source_tag_types__name", ["name"]);
+
+=head1 RELATIONS
 
 =head2 source
 
@@ -146,9 +174,44 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 tag_type
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-07-24 16:54:51
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Yss3ovHBJ4Iqm7v/W5/mPA
+Type: belongs_to
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::SourceTagType>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "tag_type",
+  "PAPS::Database::papsdb::Schema::Result::SourceTagType",
+  { id => "tag_type_id" },
+  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+);
+
+=head2 tags
+
+Type: many_to_many
+
+Composing rels: L</tag_mappings> -> tag
+
+=cut
+
+__PACKAGE__->many_to_many("tags", "tag_mappings", "tag");
+
+=head2 works
+
+Type: many_to_many
+
+Composing rels: L</source_work_tags> -> work
+
+=cut
+
+__PACKAGE__->many_to_many("works", "source_work_tags", "work");
+
+
+# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-01-15 22:01:14
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:+EU6MJDiQKnp+EWh8lT9bw
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

@@ -1,21 +1,40 @@
+use utf8;
 package PAPS::Database::papsdb::Schema::Result::File;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
+
+=head1 NAME
+
+PAPS::Database::papsdb::Schema::Result::File
+
+=cut
 
 use strict;
 use warnings;
 
 use Moose;
 use MooseX::NonMoose;
-use namespace::autoclean;
+use MooseX::MarkAsMethods autoclean => 1;
 extends 'DBIx::Class::Core';
+
+=head1 COMPONENTS LOADED
+
+=over 4
+
+=item * L<DBIx::Class::InflateColumn::DateTime>
+
+=item * L<DBIx::Class::TimeStamp>
+
+=item * L<DBIx::Class::EncodedColumn>
+
+=back
+
+=cut
 
 __PACKAGE__->load_components("InflateColumn::DateTime", "TimeStamp", "EncodedColumn");
 
-=head1 NAME
-
-PAPS::Database::papsdb::Schema::Result::File
+=head1 TABLE: C<files>
 
 =cut
 
@@ -103,44 +122,20 @@ __PACKAGE__->add_columns(
   "user_permission_id",
   { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
 );
+
+=head1 PRIMARY KEY
+
+=over 4
+
+=item * L</id>
+
+=back
+
+=cut
+
 __PACKAGE__->set_primary_key("id");
 
 =head1 RELATIONS
-
-=head2 work
-
-Type: belongs_to
-
-Related object: L<PAPS::Database::papsdb::Schema::Result::Work>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "work",
-  "PAPS::Database::papsdb::Schema::Result::Work",
-  { work_id => "work_id" },
-  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
-);
-
-=head2 user_permission
-
-Type: belongs_to
-
-Related object: L<PAPS::Database::papsdb::Schema::Result::Permission>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "user_permission",
-  "PAPS::Database::papsdb::Schema::Result::Permission",
-  { id => "user_permission_id" },
-  {
-    is_deferrable => 1,
-    join_type     => "LEFT",
-    on_delete     => "CASCADE",
-    on_update     => "CASCADE",
-  },
-);
 
 =head2 file_type
 
@@ -172,9 +167,44 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 user_permission
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-06-18 19:48:39
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:SfBWOzX86meZcaI2e9b3Vw
+Type: belongs_to
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::Permission>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "user_permission",
+  "PAPS::Database::papsdb::Schema::Result::Permission",
+  { id => "user_permission_id" },
+  {
+    is_deferrable => 1,
+    join_type     => "LEFT",
+    on_delete     => "CASCADE",
+    on_update     => "CASCADE",
+  },
+);
+
+=head2 work
+
+Type: belongs_to
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::Work>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "work",
+  "PAPS::Database::papsdb::Schema::Result::Work",
+  { work_id => "work_id" },
+  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-01-15 22:01:14
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:QVBJc7IKnOG6Tyv5IRanHg
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

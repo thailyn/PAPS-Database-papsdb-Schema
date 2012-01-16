@@ -1,21 +1,40 @@
+use utf8;
 package PAPS::Database::papsdb::Schema::Result::Source;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
+
+=head1 NAME
+
+PAPS::Database::papsdb::Schema::Result::Source
+
+=cut
 
 use strict;
 use warnings;
 
 use Moose;
 use MooseX::NonMoose;
-use namespace::autoclean;
+use MooseX::MarkAsMethods autoclean => 1;
 extends 'DBIx::Class::Core';
+
+=head1 COMPONENTS LOADED
+
+=over 4
+
+=item * L<DBIx::Class::InflateColumn::DateTime>
+
+=item * L<DBIx::Class::TimeStamp>
+
+=item * L<DBIx::Class::EncodedColumn>
+
+=back
+
+=cut
 
 __PACKAGE__->load_components("InflateColumn::DateTime", "TimeStamp", "EncodedColumn");
 
-=head1 NAME
-
-PAPS::Database::papsdb::Schema::Result::Source
+=head1 TABLE: C<sources>
 
 =cut
 
@@ -99,10 +118,56 @@ __PACKAGE__->add_columns(
   "paid_membership",
   { data_type => "boolean", is_nullable => 1 },
 );
+
+=head1 PRIMARY KEY
+
+=over 4
+
+=item * L</id>
+
+=back
+
+=cut
+
 __PACKAGE__->set_primary_key("id");
-__PACKAGE__->add_unique_constraint("unique__sources__name_short", ["name_short"]);
-__PACKAGE__->add_unique_constraint("unique__sources__url", ["url"]);
+
+=head1 UNIQUE CONSTRAINTS
+
+=head2 C<unique__sources__name>
+
+=over 4
+
+=item * L</name>
+
+=back
+
+=cut
+
 __PACKAGE__->add_unique_constraint("unique__sources__name", ["name"]);
+
+=head2 C<unique__sources__name_short>
+
+=over 4
+
+=item * L</name_short>
+
+=back
+
+=cut
+
+__PACKAGE__->add_unique_constraint("unique__sources__name_short", ["name_short"]);
+
+=head2 C<unique__sources__url>
+
+=over 4
+
+=item * L</url>
+
+=back
+
+=cut
+
+__PACKAGE__->add_unique_constraint("unique__sources__url", ["url"]);
 
 =head1 RELATIONS
 
@@ -151,21 +216,6 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
-=head2 source_tags
-
-Type: has_many
-
-Related object: L<PAPS::Database::papsdb::Schema::Result::SourceTag>
-
-=cut
-
-__PACKAGE__->has_many(
-  "source_tags",
-  "PAPS::Database::papsdb::Schema::Result::SourceTag",
-  { "foreign.source_id" => "self.id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 source_tag_types
 
 Type: has_many
@@ -177,6 +227,21 @@ Related object: L<PAPS::Database::papsdb::Schema::Result::SourceTagType>
 __PACKAGE__->has_many(
   "source_tag_types",
   "PAPS::Database::papsdb::Schema::Result::SourceTagType",
+  { "foreign.source_id" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 source_tags
+
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::SourceTag>
+
+=cut
+
+__PACKAGE__->has_many(
+  "source_tags",
+  "PAPS::Database::papsdb::Schema::Result::SourceTag",
   { "foreign.source_id" => "self.id" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
@@ -212,8 +277,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-07-24 16:54:51
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:SsFRKVJDbPTr1GGF1PYFxw
+# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-01-15 22:01:14
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:XLBg7AlXIwA+MO9m7FgjSg
 
 
 =head2 files

@@ -1,21 +1,40 @@
+use utf8;
 package PAPS::Database::papsdb::Schema::Result::Work;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
+
+=head1 NAME
+
+PAPS::Database::papsdb::Schema::Result::Work
+
+=cut
 
 use strict;
 use warnings;
 
 use Moose;
 use MooseX::NonMoose;
-use namespace::autoclean;
+use MooseX::MarkAsMethods autoclean => 1;
 extends 'DBIx::Class::Core';
+
+=head1 COMPONENTS LOADED
+
+=over 4
+
+=item * L<DBIx::Class::InflateColumn::DateTime>
+
+=item * L<DBIx::Class::TimeStamp>
+
+=item * L<DBIx::Class::EncodedColumn>
+
+=back
+
+=cut
 
 __PACKAGE__->load_components("InflateColumn::DateTime", "TimeStamp", "EncodedColumn");
 
-=head1 NAME
-
-PAPS::Database::papsdb::Schema::Result::Work
+=head1 TABLE: C<works>
 
 =cut
 
@@ -107,6 +126,17 @@ __PACKAGE__->add_columns(
     original    => { data_type => "varchar" },
   },
 );
+
+=head1 PRIMARY KEY
+
+=over 4
+
+=item * L</work_id>
+
+=back
+
+=cut
+
 __PACKAGE__->set_primary_key("work_id");
 
 =head1 RELATIONS
@@ -124,6 +154,26 @@ __PACKAGE__->has_many(
   "PAPS::Database::papsdb::Schema::Result::File",
   { "foreign.work_id" => "self.work_id" },
   { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 meta_work
+
+Type: belongs_to
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::Metawork>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "meta_work",
+  "PAPS::Database::papsdb::Schema::Result::Metawork",
+  { id => "meta_work_id" },
+  {
+    is_deferrable => 1,
+    join_type     => "LEFT",
+    on_delete     => "CASCADE",
+    on_update     => "CASCADE",
+  },
 );
 
 =head2 source_work_categories
@@ -246,41 +296,6 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
-=head2 work_type
-
-Type: belongs_to
-
-Related object: L<PAPS::Database::papsdb::Schema::Result::WorkType>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "work_type",
-  "PAPS::Database::papsdb::Schema::Result::WorkType",
-  { work_type_id => "work_type_id" },
-  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
-);
-
-=head2 meta_work
-
-Type: belongs_to
-
-Related object: L<PAPS::Database::papsdb::Schema::Result::Metawork>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "meta_work",
-  "PAPS::Database::papsdb::Schema::Result::Metawork",
-  { id => "meta_work_id" },
-  {
-    is_deferrable => 1,
-    join_type     => "LEFT",
-    on_delete     => "CASCADE",
-    on_update     => "CASCADE",
-  },
-);
-
 =head2 work_sources
 
 Type: has_many
@@ -311,9 +326,64 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 work_type
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-07-24 16:54:51
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:cLbjTp2wQdFgBoXoQCJfMw
+Type: belongs_to
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::WorkType>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "work_type",
+  "PAPS::Database::papsdb::Schema::Result::WorkType",
+  { work_type_id => "work_type_id" },
+  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+);
+
+=head2 categories
+
+Type: many_to_many
+
+Composing rels: L</source_work_categories> -> category
+
+=cut
+
+__PACKAGE__->many_to_many("categories", "source_work_categories", "category");
+
+=head2 categories_2s
+
+Type: many_to_many
+
+Composing rels: L</work_categories> -> category
+
+=cut
+
+__PACKAGE__->many_to_many("categories_2s", "work_categories", "category");
+
+=head2 tags
+
+Type: many_to_many
+
+Composing rels: L</work_tags> -> tag
+
+=cut
+
+__PACKAGE__->many_to_many("tags", "work_tags", "tag");
+
+=head2 tags_2s
+
+Type: many_to_many
+
+Composing rels: L</source_work_tags> -> tag
+
+=cut
+
+__PACKAGE__->many_to_many("tags_2s", "source_work_tags", "tag");
+
+
+# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-01-15 22:07:26
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:34aoBj+uzLrYDH9k71LqYA
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

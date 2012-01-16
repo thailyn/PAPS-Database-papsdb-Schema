@@ -1,21 +1,40 @@
+use utf8;
 package PAPS::Database::papsdb::Schema::Result::User;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
+
+=head1 NAME
+
+PAPS::Database::papsdb::Schema::Result::User
+
+=cut
 
 use strict;
 use warnings;
 
 use Moose;
 use MooseX::NonMoose;
-use namespace::autoclean;
+use MooseX::MarkAsMethods autoclean => 1;
 extends 'DBIx::Class::Core';
+
+=head1 COMPONENTS LOADED
+
+=over 4
+
+=item * L<DBIx::Class::InflateColumn::DateTime>
+
+=item * L<DBIx::Class::TimeStamp>
+
+=item * L<DBIx::Class::EncodedColumn>
+
+=back
+
+=cut
 
 __PACKAGE__->load_components("InflateColumn::DateTime", "TimeStamp", "EncodedColumn");
 
-=head1 NAME
-
-PAPS::Database::papsdb::Schema::Result::User
+=head1 TABLE: C<users>
 
 =cut
 
@@ -135,7 +154,31 @@ __PACKAGE__->add_columns(
   "is_active",
   { data_type => "boolean", default_value => \"true", is_nullable => 0 },
 );
+
+=head1 PRIMARY KEY
+
+=over 4
+
+=item * L</id>
+
+=back
+
+=cut
+
 __PACKAGE__->set_primary_key("id");
+
+=head1 UNIQUE CONSTRAINTS
+
+=head2 C<unique__users__name>
+
+=over 4
+
+=item * L</name>
+
+=back
+
+=cut
+
 __PACKAGE__->add_unique_constraint("unique__users__name", ["name"]);
 
 =head1 RELATIONS
@@ -170,9 +213,29 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 groups
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-06-12 20:44:13
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:rctGBJdbxtG4sCASIxgc9w
+Type: many_to_many
+
+Composing rels: L</group_users> -> group
+
+=cut
+
+__PACKAGE__->many_to_many("groups", "group_users", "group");
+
+=head2 permissions
+
+Type: many_to_many
+
+Composing rels: L</user_permissions> -> permission
+
+=cut
+
+__PACKAGE__->many_to_many("permissions", "user_permissions", "permission");
+
+
+# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-01-15 22:01:15
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:B0mc13ABsKdBZfrS3gR1iQ
 
 =head2 groups
 

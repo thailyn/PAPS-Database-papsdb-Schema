@@ -1,21 +1,40 @@
+use utf8;
 package PAPS::Database::papsdb::Schema::Result::WorkReference;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
+
+=head1 NAME
+
+PAPS::Database::papsdb::Schema::Result::WorkReference
+
+=cut
 
 use strict;
 use warnings;
 
 use Moose;
 use MooseX::NonMoose;
-use namespace::autoclean;
+use MooseX::MarkAsMethods autoclean => 1;
 extends 'DBIx::Class::Core';
+
+=head1 COMPONENTS LOADED
+
+=over 4
+
+=item * L<DBIx::Class::InflateColumn::DateTime>
+
+=item * L<DBIx::Class::TimeStamp>
+
+=item * L<DBIx::Class::EncodedColumn>
+
+=back
+
+=cut
 
 __PACKAGE__->load_components("InflateColumn::DateTime", "TimeStamp", "EncodedColumn");
 
-=head1 NAME
-
-PAPS::Database::papsdb::Schema::Result::WorkReference
+=head1 TABLE: C<work_references>
 
 =cut
 
@@ -86,7 +105,35 @@ __PACKAGE__->add_columns(
   "reference_text",
   { data_type => "text", is_nullable => 1 },
 );
+
+=head1 PRIMARY KEY
+
+=over 4
+
+=item * L</id>
+
+=back
+
+=cut
+
 __PACKAGE__->set_primary_key("id");
+
+=head1 UNIQUE CONSTRAINTS
+
+=head2 C<unique__work_references__referenced_referencing_type>
+
+=over 4
+
+=item * L</referencing_work_id>
+
+=item * L</referenced_work_id>
+
+=item * L</reference_type_id>
+
+=back
+
+=cut
+
 __PACKAGE__->add_unique_constraint(
   "unique__work_references__referenced_referencing_type",
   [
@@ -97,6 +144,21 @@ __PACKAGE__->add_unique_constraint(
 );
 
 =head1 RELATIONS
+
+=head2 reference_type
+
+Type: belongs_to
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::ReferenceType>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "reference_type",
+  "PAPS::Database::papsdb::Schema::Result::ReferenceType",
+  { id => "reference_type_id" },
+  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+);
 
 =head2 referenced_work
 
@@ -133,24 +195,9 @@ __PACKAGE__->belongs_to(
   { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
 );
 
-=head2 reference_type
 
-Type: belongs_to
-
-Related object: L<PAPS::Database::papsdb::Schema::Result::ReferenceType>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "reference_type",
-  "PAPS::Database::papsdb::Schema::Result::ReferenceType",
-  { id => "reference_type_id" },
-  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
-);
-
-
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-06-12 13:38:59
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:DH2wjdwRtg1RVKj1lqYsiw
+# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-01-15 22:01:15
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:U8Vl7XxWwVvoFlg+4eeqrQ
 
 =head1 Helper Methods
 

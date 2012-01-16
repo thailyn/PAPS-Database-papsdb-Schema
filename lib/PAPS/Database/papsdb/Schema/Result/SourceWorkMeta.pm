@@ -1,21 +1,40 @@
+use utf8;
 package PAPS::Database::papsdb::Schema::Result::SourceWorkMeta;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
+
+=head1 NAME
+
+PAPS::Database::papsdb::Schema::Result::SourceWorkMeta
+
+=cut
 
 use strict;
 use warnings;
 
 use Moose;
 use MooseX::NonMoose;
-use namespace::autoclean;
+use MooseX::MarkAsMethods autoclean => 1;
 extends 'DBIx::Class::Core';
+
+=head1 COMPONENTS LOADED
+
+=over 4
+
+=item * L<DBIx::Class::InflateColumn::DateTime>
+
+=item * L<DBIx::Class::TimeStamp>
+
+=item * L<DBIx::Class::EncodedColumn>
+
+=back
+
+=cut
 
 __PACKAGE__->load_components("InflateColumn::DateTime", "TimeStamp", "EncodedColumn");
 
-=head1 NAME
-
-PAPS::Database::papsdb::Schema::Result::SourceWorkMeta
+=head1 TABLE: C<source_work_meta>
 
 =cut
 
@@ -77,28 +96,41 @@ __PACKAGE__->add_columns(
     original    => { data_type => "varchar" },
   },
 );
+
+=head1 PRIMARY KEY
+
+=over 4
+
+=item * L</id>
+
+=back
+
+=cut
+
 __PACKAGE__->set_primary_key("id");
+
+=head1 UNIQUE CONSTRAINTS
+
+=head2 C<unique__source_work_meta__work_key_rank>
+
+=over 4
+
+=item * L</work_id>
+
+=item * L</key_id>
+
+=item * L</rank>
+
+=back
+
+=cut
+
 __PACKAGE__->add_unique_constraint(
   "unique__source_work_meta__work_key_rank",
   ["work_id", "key_id", "rank"],
 );
 
 =head1 RELATIONS
-
-=head2 work
-
-Type: belongs_to
-
-Related object: L<PAPS::Database::papsdb::Schema::Result::Work>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "work",
-  "PAPS::Database::papsdb::Schema::Result::Work",
-  { work_id => "work_id" },
-  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
-);
 
 =head2 key
 
@@ -115,9 +147,24 @@ __PACKAGE__->belongs_to(
   { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
 );
 
+=head2 work
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-07-24 16:54:51
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:gAUkAT2G2tzA0rRzHX+c6A
+Type: belongs_to
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::Work>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "work",
+  "PAPS::Database::papsdb::Schema::Result::Work",
+  { work_id => "work_id" },
+  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-01-15 22:01:14
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:aUBT8rg0juQPGUVbm7/e0A
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

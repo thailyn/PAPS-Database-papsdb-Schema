@@ -1,21 +1,40 @@
+use utf8;
 package PAPS::Database::papsdb::Schema::Result::WorkCategory;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
+
+=head1 NAME
+
+PAPS::Database::papsdb::Schema::Result::WorkCategory
+
+=cut
 
 use strict;
 use warnings;
 
 use Moose;
 use MooseX::NonMoose;
-use namespace::autoclean;
+use MooseX::MarkAsMethods autoclean => 1;
 extends 'DBIx::Class::Core';
+
+=head1 COMPONENTS LOADED
+
+=over 4
+
+=item * L<DBIx::Class::InflateColumn::DateTime>
+
+=item * L<DBIx::Class::TimeStamp>
+
+=item * L<DBIx::Class::EncodedColumn>
+
+=back
+
+=cut
 
 __PACKAGE__->load_components("InflateColumn::DateTime", "TimeStamp", "EncodedColumn");
 
-=head1 NAME
-
-PAPS::Database::papsdb::Schema::Result::WorkCategory
+=head1 TABLE: C<work_categories>
 
 =cut
 
@@ -43,24 +62,22 @@ __PACKAGE__->add_columns(
   "category_id",
   { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
 );
-__PACKAGE__->set_primary_key("work_id", "category_id");
 
-=head1 RELATIONS
+=head1 PRIMARY KEY
 
-=head2 work
+=over 4
 
-Type: belongs_to
+=item * L</work_id>
 
-Related object: L<PAPS::Database::papsdb::Schema::Result::Work>
+=item * L</category_id>
+
+=back
 
 =cut
 
-__PACKAGE__->belongs_to(
-  "work",
-  "PAPS::Database::papsdb::Schema::Result::Work",
-  { work_id => "work_id" },
-  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
-);
+__PACKAGE__->set_primary_key("work_id", "category_id");
+
+=head1 RELATIONS
 
 =head2 category
 
@@ -77,9 +94,24 @@ __PACKAGE__->belongs_to(
   { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
 );
 
+=head2 work
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-07-24 16:54:51
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:bNt7q3RbTBg36qH773EH3g
+Type: belongs_to
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::Work>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "work",
+  "PAPS::Database::papsdb::Schema::Result::Work",
+  { work_id => "work_id" },
+  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-01-15 22:01:15
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:W8neOok6U4vRgpRpU03t6Q
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

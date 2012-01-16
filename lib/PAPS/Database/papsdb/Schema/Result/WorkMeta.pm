@@ -1,21 +1,40 @@
+use utf8;
 package PAPS::Database::papsdb::Schema::Result::WorkMeta;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
+
+=head1 NAME
+
+PAPS::Database::papsdb::Schema::Result::WorkMeta
+
+=cut
 
 use strict;
 use warnings;
 
 use Moose;
 use MooseX::NonMoose;
-use namespace::autoclean;
+use MooseX::MarkAsMethods autoclean => 1;
 extends 'DBIx::Class::Core';
+
+=head1 COMPONENTS LOADED
+
+=over 4
+
+=item * L<DBIx::Class::InflateColumn::DateTime>
+
+=item * L<DBIx::Class::TimeStamp>
+
+=item * L<DBIx::Class::EncodedColumn>
+
+=back
+
+=cut
 
 __PACKAGE__->load_components("InflateColumn::DateTime", "TimeStamp", "EncodedColumn");
 
-=head1 NAME
-
-PAPS::Database::papsdb::Schema::Result::WorkMeta
+=head1 TABLE: C<work_meta>
 
 =cut
 
@@ -77,7 +96,35 @@ __PACKAGE__->add_columns(
     original    => { data_type => "varchar" },
   },
 );
+
+=head1 PRIMARY KEY
+
+=over 4
+
+=item * L</id>
+
+=back
+
+=cut
+
 __PACKAGE__->set_primary_key("id");
+
+=head1 UNIQUE CONSTRAINTS
+
+=head2 C<unique__work_meta__work_key_rank>
+
+=over 4
+
+=item * L</work_id>
+
+=item * L</key_id>
+
+=item * L</rank>
+
+=back
+
+=cut
+
 __PACKAGE__->add_unique_constraint(
   "unique__work_meta__work_key_rank",
   ["work_id", "key_id", "rank"],
@@ -116,8 +163,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-07-24 16:54:51
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Gr3hBFhpe4Rk2s82kUNiQw
+# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-01-15 22:01:15
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:6CPoV/2C8HGOk1krUY3veg
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

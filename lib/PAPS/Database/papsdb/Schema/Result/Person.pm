@@ -1,21 +1,40 @@
-package PAPS::Database::papsdb::Schema::Result::People;
+use utf8;
+package PAPS::Database::papsdb::Schema::Result::Person;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
+
+=head1 NAME
+
+PAPS::Database::papsdb::Schema::Result::Person
+
+=cut
 
 use strict;
 use warnings;
 
 use Moose;
 use MooseX::NonMoose;
-use namespace::autoclean;
+use MooseX::MarkAsMethods autoclean => 1;
 extends 'DBIx::Class::Core';
+
+=head1 COMPONENTS LOADED
+
+=over 4
+
+=item * L<DBIx::Class::InflateColumn::DateTime>
+
+=item * L<DBIx::Class::TimeStamp>
+
+=item * L<DBIx::Class::EncodedColumn>
+
+=back
+
+=cut
 
 __PACKAGE__->load_components("InflateColumn::DateTime", "TimeStamp", "EncodedColumn");
 
-=head1 NAME
-
-PAPS::Database::papsdb::Schema::Result::People
+=head1 TABLE: C<people>
 
 =cut
 
@@ -84,6 +103,17 @@ __PACKAGE__->add_columns(
   "date_of_birth",
   { data_type => "date", is_nullable => 1 },
 );
+
+=head1 PRIMARY KEY
+
+=over 4
+
+=item * L</person_id>
+
+=back
+
+=cut
+
 __PACKAGE__->set_primary_key("person_id");
 
 =head1 RELATIONS
@@ -104,11 +134,11 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-06-04 17:33:06
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:IJzkGRzkLIgvsCLaJD2F3g
+# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-01-15 22:01:14
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:0BVAnygQQfm5bYK7kxjGfA
 
 
-# You can replace this text with custom content, and it will be preserved on regeneration
+# You can replace this text with custom code or comments, and it will be preserved on regeneration
 
 =head2 works
 

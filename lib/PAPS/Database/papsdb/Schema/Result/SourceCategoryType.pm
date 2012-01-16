@@ -1,21 +1,40 @@
+use utf8;
 package PAPS::Database::papsdb::Schema::Result::SourceCategoryType;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
+
+=head1 NAME
+
+PAPS::Database::papsdb::Schema::Result::SourceCategoryType
+
+=cut
 
 use strict;
 use warnings;
 
 use Moose;
 use MooseX::NonMoose;
-use namespace::autoclean;
+use MooseX::MarkAsMethods autoclean => 1;
 extends 'DBIx::Class::Core';
+
+=head1 COMPONENTS LOADED
+
+=over 4
+
+=item * L<DBIx::Class::InflateColumn::DateTime>
+
+=item * L<DBIx::Class::TimeStamp>
+
+=item * L<DBIx::Class::EncodedColumn>
+
+=back
+
+=cut
 
 __PACKAGE__->load_components("InflateColumn::DateTime", "TimeStamp", "EncodedColumn");
 
-=head1 NAME
-
-PAPS::Database::papsdb::Schema::Result::SourceCategoryType
+=head1 TABLE: C<source_category_types>
 
 =cut
 
@@ -73,24 +92,20 @@ __PACKAGE__->add_columns(
     original    => { data_type => "varchar" },
   },
 );
-__PACKAGE__->set_primary_key("id");
 
-=head1 RELATIONS
+=head1 PRIMARY KEY
 
-=head2 source_categories
+=over 4
 
-Type: has_many
+=item * L</id>
 
-Related object: L<PAPS::Database::papsdb::Schema::Result::SourceCategory>
+=back
 
 =cut
 
-__PACKAGE__->has_many(
-  "source_categories",
-  "PAPS::Database::papsdb::Schema::Result::SourceCategory",
-  { "foreign.category_type_id" => "self.id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
+__PACKAGE__->set_primary_key("id");
+
+=head1 RELATIONS
 
 =head2 source
 
@@ -107,9 +122,24 @@ __PACKAGE__->belongs_to(
   { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
 );
 
+=head2 source_categories
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-07-24 16:54:51
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:qGKhyYPZuKTy+7/4e0twdQ
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::SourceCategory>
+
+=cut
+
+__PACKAGE__->has_many(
+  "source_categories",
+  "PAPS::Database::papsdb::Schema::Result::SourceCategory",
+  { "foreign.category_type_id" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-01-15 22:01:14
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:SUFELQMhcGtLGai/qMuEzA
 
 =head1 Helper Methods
 
