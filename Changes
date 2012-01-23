@@ -1,13 +1,16 @@
 Revision history for PAPS-Database-papsdb-Schema
 
-Next
+0.004  Sun Jan 22 21:57:15 2012 -0500
   New features:
     - The referencing_works many-to-many relationship in the Work class now
       includes the same fields from the work_references table that the
       referenced_works relationship includes (commit 4b2f7fd9c2).
     - Added display_name methods for the SourceCategory, SourceCategoryType,
       SourceTag, and SourceTagTypes Result classes.  These, for now, just use
-      the name field as the display name.
+      the name field as the display name (comits b4595d0982 and 2fe112aa38).
+    - Added a work_count method to the Source model, which returns the number
+      of works that belong to the source (comit 277fe172c3).
+    - Added a "year" column, a smallint, to the works table.
   Bug fixes:
     - The many-to-many relationship works in the People class referenced an
       incorrect (nonexistent) belongs_to relationship in the Works class
@@ -16,6 +19,11 @@ Next
       the correct interpretation for these relationships.  These have been
       switched, so, for example, now the referenced_works relationship gives
       the list of works that that Work object references (commit 4e93443f94).
+  Other:
+    - Updated schema to DBIx-Class-Schema-Loader-0.07015.  Among other smaller
+      changes, this version is able to determine "Person" is the singular form
+      of "People", so the People Schema class has now been replaced by the
+      Person class.
 
 0.003  Sat Aug 6 12:53:36 2011 -0400
   New features:
