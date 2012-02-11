@@ -113,6 +113,27 @@ __PACKAGE__->belongs_to(
 # Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-01-15 22:01:14
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Y+teovYHPSDo7Dshu2KcGw
 
+=head1 RELATIONS
+
+=head2 grp
+
+Type: belongs_to
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::Group>
+
+We need to redefine this belongs_to relationship because the default name,
+'group', is a reserved word in PostgreSQL and probably every other DMBS and
+was causing syntax errors.
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "grp",
+  "PAPS::Database::papsdb::Schema::Result::Group",
+  { id => "group_id" },
+  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+);
+
 =head1 Helper Methods
 
 =head2 display_name
