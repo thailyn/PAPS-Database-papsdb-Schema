@@ -275,7 +275,7 @@ Related object: L<PAPS::Database::papsdb::Schema::Result::Group>
 
 =cut
 
-__PACKAGE__->many_to_many(groups => 'group_users', 'group',
+__PACKAGE__->many_to_many(groups => 'group_users', 'grp',
                           { });
 
 =head2 permissions
