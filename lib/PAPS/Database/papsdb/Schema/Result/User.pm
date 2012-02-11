@@ -242,6 +242,8 @@ __PACKAGE__->many_to_many("permissions", "user_permissions", "permission");
 Set the encoding for the password_hash column.
 SHA-1 / hex encoding / generate check method
 
+Also retrieve the created date when inserting a new user.
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -254,6 +256,14 @@ __PACKAGE__->add_columns(
     encode_class  => 'Digest',
     encode_args   => {algorithm => 'SHA-1', format => 'hex', salt_length => 20},
     encode_check_method => 'check_password',
+  },
+  "date_created",
+  {
+    data_type     => "timestamp",
+    default_value => \"current_timestamp",
+    is_nullable   => 0,
+    original      => { default_value => \"now()" },
+    retrieve_on_insert => 1,
   },
 );
 
