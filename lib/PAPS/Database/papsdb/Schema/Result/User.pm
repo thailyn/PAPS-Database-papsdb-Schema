@@ -237,6 +237,26 @@ __PACKAGE__->many_to_many("permissions", "user_permissions", "permission");
 # Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-01-15 22:01:15
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:B0mc13ABsKdBZfrS3gR1iQ
 
+=head2 columns
+
+Set the encoding for the password_hash column.
+SHA-1 / hex encoding / generate check method
+
+=cut
+
+__PACKAGE__->add_columns(
+  "password_hash",
+  {
+    data_type   => "text",
+    is_nullable => 1,
+    original    => { data_type => "varchar" },
+    encode_column => 1,
+    encode_class  => 'Digest',
+    encode_args   => {algorithm => 'SHA-1', format => 'hex', salt_length => 20},
+    encode_check_method => 'check_password',
+  },
+);
+
 =head2 groups
 
 Type: many_to_many
