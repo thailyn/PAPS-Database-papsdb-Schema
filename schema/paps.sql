@@ -369,3 +369,14 @@ CREATE TABLE meta_keys_mappings (
   PRIMARY KEY(source_meta_key_id, meta_key_id)
 );
 
+DROP TABLE IF EXISTS user_work_data CASCADE;
+CREATE TABLE user_work_data (
+  id SERIAL PRIMARY KEY,
+  user_id int NOT NULL REFERENCES users(id),
+  work_id int NOT NULL REFERENCES works(work_id),
+  read_timestamp timestamp without time zone NULL,
+  understood_rating smallint NULL,
+  approval_rating smallint NULL,
+
+  CONSTRAINT unique__user_work_data__user_work UNIQUE(user_id, work_id)
+);
