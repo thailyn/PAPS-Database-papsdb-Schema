@@ -228,6 +228,21 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 user_work_datas
+
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::UserWorkData>
+
+=cut
+
+__PACKAGE__->has_many(
+  "user_work_datas",
+  "PAPS::Database::papsdb::Schema::Result::UserWorkData",
+  { "foreign.work_id" => "self.work_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 work_authors
 
 Type: has_many
@@ -389,8 +404,8 @@ Composing rels: L</source_work_tags> -> tag
 __PACKAGE__->many_to_many("tags_2s", "source_work_tags", "tag");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-01-15 22:35:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:oD6B0IDwo46PMvUM/SgRFQ
+# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-02-11 17:09:24
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:qLhaCWtGQmvhSBjTNnWxig
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

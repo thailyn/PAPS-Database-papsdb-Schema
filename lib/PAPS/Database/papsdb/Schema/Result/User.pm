@@ -213,6 +213,21 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 user_work_datas
+
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::UserWorkData>
+
+=cut
+
+__PACKAGE__->has_many(
+  "user_work_datas",
+  "PAPS::Database::papsdb::Schema::Result::UserWorkData",
+  { "foreign.user_id" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 groups
 
 Type: many_to_many
@@ -234,8 +249,8 @@ Composing rels: L</user_permissions> -> permission
 __PACKAGE__->many_to_many("permissions", "user_permissions", "permission");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-01-15 22:01:15
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:B0mc13ABsKdBZfrS3gR1iQ
+# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-02-11 17:09:24
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:8e0REB65jNkw2p8Sp+4WEg
 
 =head2 columns
 
