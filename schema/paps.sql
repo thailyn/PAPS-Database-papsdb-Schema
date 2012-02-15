@@ -289,6 +289,7 @@ DROP TABLE IF EXISTS source_work_categories CASCADE;
 CREATE TABLE source_work_categories (
   work_id int NOT NULL REFERENCES works(work_id),
   category_id smallint NOT NULL REFERENCES source_categories(id),
+  rank smallint NOT NULL DEFAULT 1,
   PRIMARY KEY(work_id, category_id)
 );
 
