@@ -540,7 +540,10 @@ Related object: L<PAPS::Database::papsdb::Schema::Result::SourceCategory>
 
 __PACKAGE__->many_to_many(source_categories => 'source_work_categories',
                           'category',
-                          { });
+                          {
+                              '+select' => [ 'me.rank' ],
+                              '+as' => [ 'category_rank' ]
+                          });
 
 =head2 categories
 
