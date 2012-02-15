@@ -132,7 +132,7 @@ CREATE TABLE people (
 CREATE TABLE work_authors (
   works_author_id SERIAL PRIMARY KEY,
   work_id int NOT NULL REFERENCES works (work_id),
-  person_id int NOT NULL REFERENCES people (person_id),
+  person_id int REFERENCES people (person_id),
   author_position smallint,
   author_name_text varchar,
   author_affiliation_text varchar
