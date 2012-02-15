@@ -367,21 +367,11 @@ __PACKAGE__->belongs_to(
 
 Type: many_to_many
 
-Composing rels: L</source_work_categories> -> category
-
-=cut
-
-__PACKAGE__->many_to_many("categories", "source_work_categories", "category");
-
-=head2 categories_2s
-
-Type: many_to_many
-
 Composing rels: L</work_categories> -> category
 
 =cut
 
-__PACKAGE__->many_to_many("categories_2s", "work_categories", "category");
+__PACKAGE__->many_to_many("categories", "work_categories", "category");
 
 =head2 tags
 
@@ -404,8 +394,8 @@ Composing rels: L</source_work_tags> -> tag
 __PACKAGE__->many_to_many("tags_2s", "source_work_tags", "tag");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-02-11 17:09:24
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:qLhaCWtGQmvhSBjTNnWxig
+# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-02-15 13:43:35
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:KamIiqKML7f1ukErYP4KVA
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

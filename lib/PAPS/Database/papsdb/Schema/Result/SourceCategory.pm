@@ -242,19 +242,9 @@ Composing rels: L</category_mappings> -> category
 
 __PACKAGE__->many_to_many("categories", "category_mappings", "category");
 
-=head2 works
 
-Type: many_to_many
-
-Composing rels: L</source_work_categories> -> work
-
-=cut
-
-__PACKAGE__->many_to_many("works", "source_work_categories", "work");
-
-
-# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-01-15 22:01:14
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:BSJ1ZbOkGsD0hYKCtrHF/Q
+# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-02-15 13:43:35
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:anKd5a0PTiFB/GG9oG5wRw
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

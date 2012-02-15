@@ -54,6 +54,12 @@ __PACKAGE__->table("source_work_categories");
   is_foreign_key: 1
   is_nullable: 0
 
+=head2 rank
+
+  data_type: 'smallint'
+  default_value: 1
+  is_nullable: 0
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -61,6 +67,8 @@ __PACKAGE__->add_columns(
   { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
   "category_id",
   { data_type => "smallint", is_foreign_key => 1, is_nullable => 0 },
+  "rank",
+  { data_type => "smallint", default_value => 1, is_nullable => 0 },
 );
 
 =head1 PRIMARY KEY
@@ -110,8 +118,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-01-15 22:01:14
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Ph3OKkA+m/v5XV1vyNl6Hw
+# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-02-15 13:43:35
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:RmTJC/UcEPqawtlbw3k4ow
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
