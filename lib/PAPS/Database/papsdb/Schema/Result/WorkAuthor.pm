@@ -59,7 +59,7 @@ __PACKAGE__->table("work_authors");
 
   data_type: 'integer'
   is_foreign_key: 1
-  is_nullable: 0
+  is_nullable: 1
 
 =head2 author_position
 
@@ -91,7 +91,7 @@ __PACKAGE__->add_columns(
   "work_id",
   { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
   "person_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
   "author_position",
   { data_type => "smallint", is_nullable => 1 },
   "author_name_text",
@@ -134,7 +134,12 @@ __PACKAGE__->belongs_to(
   "person",
   "PAPS::Database::papsdb::Schema::Result::Person",
   { person_id => "person_id" },
-  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+  {
+    is_deferrable => 1,
+    join_type     => "LEFT",
+    on_delete     => "CASCADE",
+    on_update     => "CASCADE",
+  },
 );
 
 =head2 work
@@ -153,8 +158,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-02-15 14:31:15
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:EeS9XRMPplE8jev4UXsWIA
+# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-02-15 16:07:01
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Qpi4y1xXW9pk/5viUE2eUA
 
 =head1 Helper Methods
 
