@@ -451,8 +451,10 @@ __PACKAGE__->has_many(
 #   You must already have the has_many() defined to use a many_to_many().
 __PACKAGE__->many_to_many(authors => 'work_authors', 'person',
                           {
-                              '+select' => 'me.author_position',
-                              '+as' => 'author_position',
+                              '+select' => [ 'me.author_position, me.author_name_text',
+                                             'me.author_affiliation_text' ],
+                              '+as' => [ 'author_position', 'author_name_text',
+                                         'author_affiliation_text' ],
                           });
 
 
