@@ -66,6 +66,18 @@ __PACKAGE__->table("work_authors");
   data_type: 'smallint'
   is_nullable: 1
 
+=head2 author_name_text
+
+  data_type: 'text'
+  is_nullable: 1
+  original: {data_type => "varchar"}
+
+=head2 author_affiliation_text
+
+  data_type: 'text'
+  is_nullable: 1
+  original: {data_type => "varchar"}
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -82,6 +94,18 @@ __PACKAGE__->add_columns(
   { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
   "author_position",
   { data_type => "smallint", is_nullable => 1 },
+  "author_name_text",
+  {
+    data_type   => "text",
+    is_nullable => 1,
+    original    => { data_type => "varchar" },
+  },
+  "author_affiliation_text",
+  {
+    data_type   => "text",
+    is_nullable => 1,
+    original    => { data_type => "varchar" },
+  },
 );
 
 =head1 PRIMARY KEY
@@ -129,8 +153,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-01-15 22:01:15
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:7lbsFdpxQW5BW5c5dQViPg
+# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-02-15 14:31:15
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:EeS9XRMPplE8jev4UXsWIA
 
 =head1 Helper Methods
 
