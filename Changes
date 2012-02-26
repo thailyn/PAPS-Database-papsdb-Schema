@@ -1,5 +1,46 @@
 Revision history for PAPS-Database-papsdb-Schema
 
+0.005  Sun Feb 26 12:53:27 2012 -0500
+  New features:
+    - Treat the password_hash column in the users table as an encoded column,
+      so setting that value automatically encrypts the value provided before
+      updating the table and passwords can be verified using built-in
+      functionality (commit 062b987cda).
+    - Retrieve the created_date for a user when inserting a new record.  This
+      column has a default value of the current timestamp (commit e9159fc03c).
+    - Added schema information, result classes, and relationships for the new
+      table user_work_data, which stores information for each user relating to
+      works.
+    - Added support for the rank column in the source_work_categories table.
+      This column indicates what rank each category is for a work (e.g., if it
+      is a primary category versus a secondary category).
+    - Added support for the new author metadata columns in work_authors table.
+      The author_name_text column optionally stores the literal text used in
+      the work to name an author.  This can be used to keep track of how an
+      author is named and to store a name for an author whose definitive
+      "person" information has not yet been found.  The second new column,
+      author_affiliation_text, optionally stores the literal text used to
+      describe the author's affiliation.  Since there is no definitive way to
+      store affiliation information, this will be the only way, for now, to
+      keep track of an author's affiliation.  Later, like the author_name_text
+      column, it will be used to keep track of how an affiliation is named and
+      to keep track of affiliations that have not be definitively identified
+      yet.
+    - Include the new work_authors columns in the authors many-to-many
+      relationship in the Work result class (commit fcb3880cf8).
+    - Include the rank column from the source_work_categories table in the
+      Work result class's source_categories many-to-many relationshiop (commit
+      d9f6ffb5ec).
+  Bug fixes:
+    - The GroupUser's belongs_to relationship to the Groups result class,
+      named "group", causes SQL to be created that uses the reserved word
+      "group" incorrectly.  This relationship has now been redefined to the
+      more innocuous name "grp" (commit 10bcdb2187).
+    - Removed the NOT NULL constraint on the person_id column in the
+      work_authors table.  If we only store the literal text used to reference
+      a person in a work, but do not have a valid Person object, the person_id
+      column will be null and should not cause an error (commit c97891b368).
+
 0.004  Sun Jan 22 21:57:15 2012 -0500
   New features:
     - The referencing_works many-to-many relationship in the Work class now
