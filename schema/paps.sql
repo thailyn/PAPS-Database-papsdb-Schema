@@ -383,3 +383,23 @@ CREATE TABLE user_work_data (
 
   CONSTRAINT unique__user_work_data__user_work UNIQUE(user_id, work_id)
 );
+
+DROP TABLE IF EXISTS collections CASCADE;
+CREATE TABLE collections (
+  id SERIAL PRIMARY KEY,
+  user_id int NOT NULL REFERENCES users(id),
+  name varchar NOT NULL,
+  description varchar NULL,
+  created_timestamp timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  show_with_works boolean NOT NULL DEFAULT TRUE,
+  show_with_work_references boolean NOT NULL DEFAULT TRUE,
+  show_with_referenced_works boolean NOT NULL DEFAULT TRUE
+);
+
+DROP TABLE IF EXISTS collection_works CASCADE;
+CREATE TABLE collection_works (
+  collection_id int NOT NULL REFERENCES collections(id),
+  work_id int NOT NULL REFERENCES works(work_id),
+  added_timestamp timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  notes varchar NULL
+);
