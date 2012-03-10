@@ -148,6 +148,21 @@ __PACKAGE__->set_primary_key("work_id");
 
 =head1 RELATIONS
 
+=head2 collection_works
+
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::CollectionWork>
+
+=cut
+
+__PACKAGE__->has_many(
+  "collection_works",
+  "PAPS::Database::papsdb::Schema::Result::CollectionWork",
+  { "foreign.work_id" => "self.work_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 files
 
 Type: has_many
@@ -394,8 +409,8 @@ Composing rels: L</source_work_tags> -> tag
 __PACKAGE__->many_to_many("tags_2s", "source_work_tags", "tag");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-02-15 13:43:35
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:KamIiqKML7f1ukErYP4KVA
+# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-03-08 21:24:03
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:luh0/VOCIrdyAHL3wZ6k7w
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

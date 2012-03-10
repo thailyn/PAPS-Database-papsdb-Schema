@@ -183,6 +183,21 @@ __PACKAGE__->add_unique_constraint("unique__users__name", ["name"]);
 
 =head1 RELATIONS
 
+=head2 collections
+
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::Collection>
+
+=cut
+
+__PACKAGE__->has_many(
+  "collections",
+  "PAPS::Database::papsdb::Schema::Result::Collection",
+  { "foreign.user_id" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 group_users
 
 Type: has_many
@@ -249,8 +264,8 @@ Composing rels: L</user_permissions> -> permission
 __PACKAGE__->many_to_many("permissions", "user_permissions", "permission");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-02-11 17:09:24
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:8e0REB65jNkw2p8Sp+4WEg
+# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-03-08 21:24:03
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:AEHKFWYdhBPAGNfDEMK2sw
 
 =head2 columns
 
