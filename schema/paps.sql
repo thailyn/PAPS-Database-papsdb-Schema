@@ -401,5 +401,7 @@ CREATE TABLE collection_works (
   collection_id int NOT NULL REFERENCES collections(id),
   work_id int NOT NULL REFERENCES works(work_id),
   added_timestamp timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  notes varchar NULL
+  notes varchar NULL,
+
+  PRIMARY KEY(collection_id, work_id)
 );
