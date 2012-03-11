@@ -603,6 +603,21 @@ __PACKAGE__->many_to_many(meta_keys => 'work_metas',
                               '+as' => [ 'rank', 'value' ],
                           });
 
+=head2 collections
+
+Type: many_to_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::Collection>
+
+=cut
+
+__PACKAGE__->many_to_many(collections => 'collection_works',
+                          "collection",
+                          {
+                              '+select' => [ 'me.added_timestamp', 'me.notes' ],
+                              '+as' => ['added_timestamp', 'notes' ],
+                          });
+
 
 # Helper methods
 

@@ -181,5 +181,21 @@ __PACKAGE__->belongs_to(
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
+
+=head2 works
+
+Type: many_to_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::Work>
+
+=cut
+
+__PACKAGE__->many_to_many(works => 'collection_works',
+                          "work",
+                         {
+                              '+select' => [ 'me.added_timestamp', 'me.notes' ],
+                              '+as' => ['added_timestamp', 'notes' ],
+                         });
+
 __PACKAGE__->meta->make_immutable;
 1;
