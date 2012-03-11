@@ -89,6 +89,20 @@ __PACKAGE__->add_columns(
   },
 );
 
+=head1 PRIMARY KEY
+
+=over 4
+
+=item * L</collection_id>
+
+=item * L</work_id>
+
+=back
+
+=cut
+
+__PACKAGE__->set_primary_key("collection_id", "work_id");
+
 =head1 RELATIONS
 
 =head2 collection
@@ -122,8 +136,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-03-08 21:24:03
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:uqPX91K9Poc7n3C4yZIUkA
+# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-03-11 12:51:49
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Zde2dKbIuna/I8X8hnZNwg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
