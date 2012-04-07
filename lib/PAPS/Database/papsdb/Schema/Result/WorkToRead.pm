@@ -47,19 +47,34 @@ __PACKAGE__->result_source_instance->is_virtual(1);
 __PACKAGE__->result_source_instance->view_definition(q[
 WITH RECURSIVE referencing_works AS
 (
-  select w.work_id, w.title, w.subtitle, -1 as referenced_work_id, 0 as depth
-  from works w
-  where w.work_id = ?
+    select w.work_id as work_id, w.meta_work_id as meta_work_id,
+       w.work_type_id as work_type_id,
+       w.title as title, w.subtitle as subtitle,
+       w.edition as edition, w.num_references as num_references,
+       w.doi as doi, w.year as year,
+       -1 as referenced_work_id, 0 as depth
+    from works w
+    where w.work_id = ?
 
-  UNION ALL
+    UNION ALL
 
-  select w.work_id, w.title, w.subtitle, wr.referenced_work_id, w2.depth + 1 as depth
-  from works w
-  inner join work_references wr on w.work_id = wr.referencing_work_id
-  inner join referencing_works w2 on w2.work_id = wr.referenced_work_id
-  --where w2.depth = max(w2.depth)
+    select w.work_id as work_id, w.meta_work_id as meta_work_id,
+       w.work_type_id as work_type_id,
+       w.title as title, w.subtitle as subtitle,
+       w.edition as edition, w.num_references as num_references,
+       w.doi as doi, w.year as year,
+       wr.referenced_work_id, w2.depth + 1 as depth
+    from works w
+    inner join work_references wr on w.work_id = wr.referencing_work_id
+    inner join referencing_works w2 on w2.work_id = wr.referenced_work_id
+    --where w2.depth = max(w2.depth)
 )
-select distinct rw.work_id, rw.title || ' ' || coalesce(rw.subtitle, '') as title, rw.referenced_work_id, rw.depth, uwd.read_timestamp, uwd.understood_rating, uwd.approval_rating
+select distinct rw.work_id as work_id, rw.meta_work_id as meta_work_id,
+    rw.work_type_id as work_type_id,
+    rw.title as title, rw.subtitle as subtitle,
+    rw.edition as edition, rw.num_references as num_references,
+    rw.doi as doi, rw.year as year,
+    rw.referenced_work_id as referenced_work_id, rw.depth as depth
 from referencing_works rw
 left join user_work_data uwd on rw.work_id = uwd.work_id
     and uwd.user_id = ?
