@@ -198,6 +198,473 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key("work_id");
 
+=head1 RELATIONS
+
+=head2 collection_works
+
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::CollectionWork>
+
+=cut
+
+__PACKAGE__->has_many(
+  "collection_works",
+  "PAPS::Database::papsdb::Schema::Result::CollectionWork",
+  { "foreign.work_id" => "self.work_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 files
+
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::File>
+
+=cut
+
+__PACKAGE__->has_many(
+  "files",
+  "PAPS::Database::papsdb::Schema::Result::File",
+  { "foreign.work_id" => "self.work_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 meta_work
+
+Type: belongs_to
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::Metawork>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "meta_work",
+  "PAPS::Database::papsdb::Schema::Result::Metawork",
+  { id => "meta_work_id" },
+  {
+    is_deferrable => 1,
+    join_type     => "LEFT",
+    on_delete     => "CASCADE",
+    on_update     => "CASCADE",
+  },
+);
+
+=head2 source_work_categories
+
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::SourceWorkCategory>
+
+=cut
+
+__PACKAGE__->has_many(
+  "source_work_categories",
+  "PAPS::Database::papsdb::Schema::Result::SourceWorkCategory",
+  { "foreign.work_id" => "self.work_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 source_work_metas
+
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::SourceWorkMeta>
+
+=cut
+
+__PACKAGE__->has_many(
+  "source_work_metas",
+  "PAPS::Database::papsdb::Schema::Result::SourceWorkMeta",
+  { "foreign.work_id" => "self.work_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 source_work_tags
+
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::SourceWorkTag>
+
+=cut
+
+__PACKAGE__->has_many(
+  "source_work_tags",
+  "PAPS::Database::papsdb::Schema::Result::SourceWorkTag",
+  { "foreign.work_id" => "self.work_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 user_work_datas
+
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::UserWorkData>
+
+=cut
+
+__PACKAGE__->has_many(
+  "user_work_datas",
+  "PAPS::Database::papsdb::Schema::Result::UserWorkData",
+  { "foreign.work_id" => "self.work_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 work_authors
+
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::WorkAuthor>
+
+=cut
+
+__PACKAGE__->has_many(
+  "work_authors",
+  "PAPS::Database::papsdb::Schema::Result::WorkAuthor",
+  { "foreign.work_id" => "self.work_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 work_categories
+
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::WorkCategory>
+
+=cut
+
+__PACKAGE__->has_many(
+  "work_categories",
+  "PAPS::Database::papsdb::Schema::Result::WorkCategory",
+  { "foreign.work_id" => "self.work_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 work_metas
+
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::WorkMeta>
+
+=cut
+
+__PACKAGE__->has_many(
+  "work_metas",
+  "PAPS::Database::papsdb::Schema::Result::WorkMeta",
+  { "foreign.work_id" => "self.work_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 work_references_referenced_works
+
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::WorkReference>
+
+=cut
+
+__PACKAGE__->has_many(
+  "work_references_referenced_works",
+  "PAPS::Database::papsdb::Schema::Result::WorkReference",
+  { "foreign.referenced_work_id" => "self.work_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 work_references_referencing_works
+
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::WorkReference>
+
+=cut
+
+__PACKAGE__->has_many(
+  "work_references_referencing_works",
+  "PAPS::Database::papsdb::Schema::Result::WorkReference",
+  { "foreign.referencing_work_id" => "self.work_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 work_sources
+
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::WorkSource>
+
+=cut
+
+__PACKAGE__->has_many(
+  "work_sources",
+  "PAPS::Database::papsdb::Schema::Result::WorkSource",
+  { "foreign.work_id" => "self.work_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 work_tags
+
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::WorkTag>
+
+=cut
+
+__PACKAGE__->has_many(
+  "work_tags",
+  "PAPS::Database::papsdb::Schema::Result::WorkTag",
+  { "foreign.work_id" => "self.work_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 work_type
+
+Type: belongs_to
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::WorkType>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "work_type",
+  "PAPS::Database::papsdb::Schema::Result::WorkType",
+  { work_type_id => "work_type_id" },
+  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+);
+
+=head2 categories
+
+Type: many_to_many
+
+Composing rels: L</work_categories> -> category
+
+=cut
+
+__PACKAGE__->many_to_many("categories", "work_categories", "category");
+
+=head2 tags
+
+Type: many_to_many
+
+Composing rels: L</work_tags> -> tag
+
+=cut
+
+__PACKAGE__->many_to_many("tags", "work_tags", "tag");
+
+=head2 tags_2s
+
+Type: many_to_many
+
+Composing rels: L</source_work_tags> -> tag
+
+=cut
+
+__PACKAGE__->many_to_many("tags_2s", "source_work_tags", "tag");
+
+
+=head2 work_references_referencing_works
+
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::WorkReference>
+This has_many relationship is being redefined here because the naming that
+DBIx uses relates a relationship specifically with the name of the foreign
+field.  In most cases, that is fine, but here, we need the opposite.  What a
+Work is referenced by (what is referencing it and what, simply from the
+perspective of the reference, is the Work being referenced) should be in its
+list of work_references_referencing_works and, by extension, the
+referencing_works many-to-many relationshipo.
+
+=cut
+
+__PACKAGE__->has_many(
+  "work_references_referencing_works",
+  "PAPS::Database::papsdb::Schema::Result::WorkReference",
+  { "foreign.referenced_work_id" => "self.work_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 work_references_referenced_works
+
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::WorkReference>
+As with the work_references_referencing_works has_many relationship, this
+relationship is being redefined because DBIx has the reverse naming convention
+compared to how it should be, in this case.  What this Work considers a
+referenced Work is what, from the perspective of the reference itself, has
+this Work as the referencing Work.
+
+=cut
+
+__PACKAGE__->has_many(
+  "work_references_referenced_works",
+  "PAPS::Database::papsdb::Schema::Result::WorkReference",
+  { "foreign.referencing_work_id" => "self.work_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+# many_to_many():
+#   args:
+#     1) Name of relationship, DBIC will create accessor with this name
+#     2) Name of has_many() relationship this many_to_many() is shortcut for
+#     3) Name of belongs_to() relationship in model class of has_many() above
+#   You must already have the has_many() defined to use a many_to_many().
+__PACKAGE__->many_to_many(authors => 'work_authors', 'person',
+                          {
+                              '+select' => [ 'me.author_position, me.author_name_text',
+                                             'me.author_affiliation_text' ],
+                              '+as' => [ 'author_position', 'author_name_text',
+                                         'author_affiliation_text' ],
+                          });
+
+
+=head2 sources
+
+Type: many_to_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::Source>
+
+=cut
+
+__PACKAGE__->many_to_many(sources => 'work_sources', 'source',
+                          {
+                              '+select' => 'me.url',
+                              '+as' => 'url',
+                          });
+
+=head2 referenced_works
+
+Type: many_to_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::Work>
+
+=cut
+
+__PACKAGE__->many_to_many(referenced_works => 'work_references_referenced_works',
+                          'referenced_work',
+                          {
+                              '+select' => [ 'me.reference_type_id', 'me.rank',
+                                             'me.chapter', 'me.reference_text' ],
+                              '+as' => [ 'reference_type_id', 'rank',
+                                         'chapter', 'reference_text' ],
+                          });
+
+=head2 referencing_works
+
+Type: many_to_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::Work>
+
+=cut
+
+__PACKAGE__->many_to_many(referencing_works => 'work_references_referencing_works',
+                          'referencing_work',
+                          {
+                              '+select' => [ 'me.reference_type_id', 'me.rank',
+                                             'me.chapter', 'me.reference_text' ],
+                              '+as' => [ 'reference_type_id', 'rank',
+                                         'chapter', 'reference_text' ],
+                          });
+
+=head2 source_tags
+
+Type: many_to_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::SourceTag>
+
+=cut
+
+__PACKAGE__->many_to_many(source_tags => 'source_work_tags',
+                          'tag',
+                          { });
+
+=head2 tags
+
+Type: many_to_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::WorkTag>
+
+=cut
+
+__PACKAGE__->many_to_many(tags => 'work_tags',
+                          'tag',
+                          { });
+
+=head2 source_categories
+
+Type: many_to_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::SourceCategory>
+
+=cut
+
+__PACKAGE__->many_to_many(source_categories => 'source_work_categories',
+                          'category',
+                          {
+                              '+select' => [ 'me.rank' ],
+                              '+as' => [ 'category_rank' ]
+                          });
+
+=head2 categories
+
+Type: many_to_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::Category>
+
+=cut
+
+__PACKAGE__->many_to_many(categories => 'work_categories',
+                          'category',
+                          { });
+
+=head2 source_meta_keys
+
+Type: many_to_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::SourceWorkMetaKey>
+
+=cut
+
+__PACKAGE__->many_to_many(source_meta_keys => 'source_work_metas',
+                          'key',
+                          {
+                              '+select' => [ 'me.rank', 'me.value' ],
+                              '+as' => [ 'rank', 'value' ],
+                          });
+
+
+=head2 meta_keys
+
+Type: many_to_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::WorkMetaKey>
+
+=cut
+
+__PACKAGE__->many_to_many(meta_keys => 'work_metas',
+                          'key',
+                          {
+                              '+select' => [ 'me.rank', 'me.value' ],
+                              '+as' => [ 'rank', 'value' ],
+                          });
+
+=head2 collections
+
+Type: many_to_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::Collection>
+
+=cut
+
+__PACKAGE__->many_to_many(collections => 'collection_works',
+                          "collection",
+                          {
+                              '+select' => [ 'me.added_timestamp', 'me.notes' ],
+                              '+as' => ['added_timestamp', 'notes' ],
+                          });
+
+
 # Helper methods
 
 =head2 display_name
