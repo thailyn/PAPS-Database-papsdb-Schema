@@ -74,7 +74,9 @@ select distinct rw.work_id as work_id, rw.meta_work_id as meta_work_id,
     rw.title as title, rw.subtitle as subtitle,
     rw.edition as edition, rw.num_references as num_references,
     rw.doi as doi, rw.year as year,
-    rw.referencing_work_id as referencing_work_id, rw.depth as depth
+    rw.referencing_work_id as referencing_work_id, rw.depth as depth,
+    uwd.read_timestamp as read_timestamp, uwd.understood_rating as understood_rating,
+    uwd.approval_rating as approval_rating
 from referencing_works rw
 left join user_work_data uwd on rw.work_id = uwd.work_id
     and uwd.user_id = ?
@@ -145,6 +147,21 @@ order by rw.depth, rw.work_id, rw.referencing_work_id
   data_type: 'smallint'
   is_nullable: 1
 
+=head2 read_timestamp
+
+  data_type: 'timestamp'
+  is_nullable: 1
+
+=head2 understood_rating
+
+  data_type: 'smallint'
+  is_nullable: 1
+
+=head2 approval_rating
+
+  data_type: 'smallint'
+  is_nullable: 1
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -186,6 +203,12 @@ __PACKAGE__->add_columns(
   "referencing_work_id",
   { data_type => "integer", is_nullable => 1 },
   "depth",
+  { data_type => "smallint", is_nullable => 1 },
+  "read_timestamp",
+  { data_type => "timestamp", is_nullable => 1 },
+  "understood_rating",
+  { data_type => "smallint", is_nullable => 1 },
+  "approval_rating",
   { data_type => "smallint", is_nullable => 1 },
 );
 
