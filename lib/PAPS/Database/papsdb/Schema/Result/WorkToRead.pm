@@ -52,7 +52,7 @@ WITH RECURSIVE referencing_works AS
        w.title as title, w.subtitle as subtitle,
        w.edition as edition, w.num_references as num_references,
        w.doi as doi, w.year as year,
-       -1 as referenced_work_id, 0 as depth
+       -1 as referencing_work_id, 0 as depth
     from works w
     where w.work_id = ?
 
@@ -63,10 +63,10 @@ WITH RECURSIVE referencing_works AS
        w.title as title, w.subtitle as subtitle,
        w.edition as edition, w.num_references as num_references,
        w.doi as doi, w.year as year,
-       wr.referenced_work_id, w2.depth + 1 as depth
+       wr.referencing_work_id, w2.depth + 1 as depth
     from works w
-    inner join work_references wr on w.work_id = wr.referencing_work_id
-    inner join referencing_works w2 on w2.work_id = wr.referenced_work_id
+    inner join work_references wr on w.work_id = wr.referenced_work_id
+    inner join referencing_works w2 on w2.work_id = wr.referencing_work_id
     --where w2.depth = max(w2.depth)
 )
 select distinct rw.work_id as work_id, rw.meta_work_id as meta_work_id,
@@ -74,11 +74,11 @@ select distinct rw.work_id as work_id, rw.meta_work_id as meta_work_id,
     rw.title as title, rw.subtitle as subtitle,
     rw.edition as edition, rw.num_references as num_references,
     rw.doi as doi, rw.year as year,
-    rw.referenced_work_id as referenced_work_id, rw.depth as depth
+    rw.referencing_work_id as referencing_work_id, rw.depth as depth
 from referencing_works rw
 left join user_work_data uwd on rw.work_id = uwd.work_id
     and uwd.user_id = ?
-order by rw.depth, rw.work_id, rw.referenced_work_id
+order by rw.depth, rw.work_id, rw.referencing_work_id
 ]);
 
 =head1 ACCESSORS
@@ -135,7 +135,7 @@ order by rw.depth, rw.work_id, rw.referenced_work_id
   data_type: 'smallint'
   is_nullable: 1
 
-=head2 referenced_work_id
+=head2 referencing_work_id
 
   data_type: 'integer'
   is_nullable: 1
