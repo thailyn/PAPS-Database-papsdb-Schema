@@ -138,7 +138,6 @@ order by rw.depth, rw.work_id, rw.referenced_work_id
 =head2 referenced_work_id
 
   data_type: 'integer'
-  is_foreign_key: 1
   is_nullable: 1
 
 =head2 depth
