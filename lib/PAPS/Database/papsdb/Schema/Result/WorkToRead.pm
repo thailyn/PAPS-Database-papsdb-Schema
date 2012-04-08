@@ -183,6 +183,10 @@ __PACKAGE__->add_columns(
   },
   "year",
   { data_type => "smallint", is_nullable => 1 },
+  "referencing_work_id",
+  { data_type => "integer", is_nullable => 1 },
+  "depth",
+  { data_type => "smallint", is_nullable => 1 },
 );
 
 =head1 PRIMARY KEY
