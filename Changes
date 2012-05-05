@@ -1,5 +1,22 @@
 Revision history for PAPS-Database-papsdb-Schema
 
+0.006  Sat May 5 15:55:00 2012 -0400
+  New features:
+    - Added tables collections and collection_works, for storing collections
+      and mapping works into collections, respectively.
+    - Added view result set WorkToRead, whcih returns a set of works and user
+      work data.  The set returned consists of all the works referencing a
+      work (indicated by a parameter), recursively continuing through the
+      references relationship, with an indicated user's work data (the user is
+      indicated by the second parameter.
+    - Added view result set WorkConnectedComponent, which, given a work and an
+      optional user, returns a set of works with user work data, containing
+      all works in the indicated work's connected component, using references
+      as the relationship between works.
+    - Added view result set ViewWorksWithUserData, which returns the set of
+      all works with an indicated user's user work data.  This is needed due
+      to not being able to add conditions to a join in DBIx relationships.
+
 0.005  Sun Feb 26 12:53:27 2012 -0500
   New features:
     - Treat the password_hash column in the users table as an encoded column,
