@@ -405,3 +405,27 @@ CREATE TABLE collection_works (
 
   PRIMARY KEY(collection_id, work_id)
 );
+
+DROP TABLE IF EXISTS algorithms CASCADE;
+CREATE TABLE algorithms (
+  id SERIAL PRIMARY KEY,
+  name varchar NOT NULL,
+  description varchar NULL,
+
+  CONSTRAINT unique__algorithms__name UNIQUE(name)
+);
+
+
+DROP TABLE IF EXISTS referenced_work_guesses CASCADE;
+CREATE TABLE referenced_work_guesses (
+  id SERIAL PRIMARY KEY,
+  work_reference_id BIGINT NOT NULL REFERENCES work_references(id),
+  guessed_referenced_work_id BIGINT NOT NULL REFERENCES work_references(id),
+  confidence REAL NOT NULL DEFAULT 0,
+  user_id INT NOT NULL REFERENCES users(id),
+  algorithm_id INT NOT NULL REFERENCES algorithms(id),
+  version varchar NULL,
+  last_checked timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+  CONSTRAINT unique__referenced_work_guesses__guessed_referenced_work_algorithm_version UNIQUE(guessed_referenced_work_id, algorithm_id, version)
+);
