@@ -91,7 +91,7 @@ __PACKAGE__->belongs_to(
   "member_group",
   "PAPS::Database::papsdb::Schema::Result::Group",
   { id => "member_group_id" },
-  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+  { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
 );
 
 =head2 parent_group
@@ -106,12 +106,12 @@ __PACKAGE__->belongs_to(
   "parent_group",
   "PAPS::Database::papsdb::Schema::Result::Group",
   { id => "parent_group_id" },
-  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+  { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-01-15 22:01:14
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:/r8F33sw26bJAsnPoXdfPA
+# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-03-17 17:29:03
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:G0l1eOcyhF0uuuU3My7qSg
 
 =head1 Helper Methods
 

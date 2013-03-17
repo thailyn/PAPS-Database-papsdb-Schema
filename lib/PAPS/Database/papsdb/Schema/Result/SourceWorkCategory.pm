@@ -99,7 +99,7 @@ __PACKAGE__->belongs_to(
   "category",
   "PAPS::Database::papsdb::Schema::Result::SourceCategory",
   { id => "category_id" },
-  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+  { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
 );
 
 =head2 work
@@ -114,12 +114,12 @@ __PACKAGE__->belongs_to(
   "work",
   "PAPS::Database::papsdb::Schema::Result::Work",
   { work_id => "work_id" },
-  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+  { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-02-15 13:43:35
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:RmTJC/UcEPqawtlbw3k4ow
+# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-03-17 17:29:04
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:lyhAq2UenjNvR+PbSN92Pg
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

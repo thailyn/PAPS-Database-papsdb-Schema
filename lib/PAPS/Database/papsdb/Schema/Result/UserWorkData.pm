@@ -140,7 +140,7 @@ __PACKAGE__->belongs_to(
   "user",
   "PAPS::Database::papsdb::Schema::Result::User",
   { id => "user_id" },
-  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+  { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
 );
 
 =head2 work
@@ -155,12 +155,12 @@ __PACKAGE__->belongs_to(
   "work",
   "PAPS::Database::papsdb::Schema::Result::Work",
   { work_id => "work_id" },
-  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+  { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-02-11 17:09:24
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:5RjI55K9IBj5yWN03hlZVg
+# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-03-17 17:29:04
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:79W3R+oOTybbZ65E2jiGRA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

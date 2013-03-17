@@ -164,7 +164,7 @@ __PACKAGE__->belongs_to(
   "category_type",
   "PAPS::Database::papsdb::Schema::Result::SourceCategoryType",
   { id => "category_type_id" },
-  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+  { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
 );
 
 =head2 parent_category
@@ -180,10 +180,10 @@ __PACKAGE__->belongs_to(
   "PAPS::Database::papsdb::Schema::Result::SourceCategory",
   { id => "parent_category_id" },
   {
-    is_deferrable => 1,
+    is_deferrable => 0,
     join_type     => "LEFT",
-    on_delete     => "CASCADE",
-    on_update     => "CASCADE",
+    on_delete     => "NO ACTION",
+    on_update     => "NO ACTION",
   },
 );
 
@@ -199,7 +199,7 @@ __PACKAGE__->belongs_to(
   "source",
   "PAPS::Database::papsdb::Schema::Result::Source",
   { id => "source_id" },
-  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+  { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
 );
 
 =head2 source_categories
@@ -243,8 +243,8 @@ Composing rels: L</category_mappings> -> category
 __PACKAGE__->many_to_many("categories", "category_mappings", "category");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-02-15 13:43:35
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:anKd5a0PTiFB/GG9oG5wRw
+# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-03-17 17:29:04
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:P56smjPSQRMnPp51lOagUA
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

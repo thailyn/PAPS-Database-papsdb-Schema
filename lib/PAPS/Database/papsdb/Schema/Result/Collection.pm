@@ -172,12 +172,12 @@ __PACKAGE__->belongs_to(
   "user",
   "PAPS::Database::papsdb::Schema::Result::User",
   { id => "user_id" },
-  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+  { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-03-09 19:40:18
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:NS2PHo7Hfqnr2NqdF7d8Qg
+# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-03-17 17:29:03
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ErYB/psHe3F8lLCnpTpF7w
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

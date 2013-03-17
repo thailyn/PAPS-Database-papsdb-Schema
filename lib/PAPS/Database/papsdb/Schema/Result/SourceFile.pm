@@ -158,7 +158,7 @@ __PACKAGE__->belongs_to(
   "file",
   "PAPS::Database::papsdb::Schema::Result::File",
   { id => "file_id" },
-  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+  { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
 );
 
 =head2 source
@@ -173,12 +173,12 @@ __PACKAGE__->belongs_to(
   "source",
   "PAPS::Database::papsdb::Schema::Result::Source",
   { id => "source_id" },
-  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+  { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-01-15 22:01:14
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:aoTjY/VfTqbk6WQrY+WZFQ
+# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-03-17 17:29:04
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:XPkXTT5AzpTGqAAM5fkaLA
 
 =head1 Helper Methods
 

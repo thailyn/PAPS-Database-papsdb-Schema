@@ -135,10 +135,10 @@ __PACKAGE__->belongs_to(
   "PAPS::Database::papsdb::Schema::Result::Person",
   { person_id => "person_id" },
   {
-    is_deferrable => 1,
+    is_deferrable => 0,
     join_type     => "LEFT",
-    on_delete     => "CASCADE",
-    on_update     => "CASCADE",
+    on_delete     => "NO ACTION",
+    on_update     => "NO ACTION",
   },
 );
 
@@ -154,12 +154,12 @@ __PACKAGE__->belongs_to(
   "work",
   "PAPS::Database::papsdb::Schema::Result::Work",
   { work_id => "work_id" },
-  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+  { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-02-15 16:07:01
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Qpi4y1xXW9pk/5viUE2eUA
+# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-03-17 17:29:04
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:j2bTm9KQdudYf06XFJ8aBw
 
 =head1 Helper Methods
 

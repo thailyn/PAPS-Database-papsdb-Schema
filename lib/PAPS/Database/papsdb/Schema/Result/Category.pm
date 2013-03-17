@@ -164,10 +164,10 @@ __PACKAGE__->belongs_to(
   "PAPS::Database::papsdb::Schema::Result::Category",
   { id => "parent_category_id" },
   {
-    is_deferrable => 1,
+    is_deferrable => 0,
     join_type     => "LEFT",
-    on_delete     => "CASCADE",
-    on_update     => "CASCADE",
+    on_delete     => "NO ACTION",
+    on_update     => "NO ACTION",
   },
 );
 
@@ -207,8 +207,8 @@ Composing rels: L</work_categories> -> work
 __PACKAGE__->many_to_many("works", "work_categories", "work");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-01-15 22:01:14
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:aJ5xUtSE1lhnnvKLCQ8UNQ
+# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-03-17 17:29:03
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:7X6/zG71vmEnjV1VdovZ6Q
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

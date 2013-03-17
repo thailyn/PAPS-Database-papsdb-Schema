@@ -157,7 +157,7 @@ __PACKAGE__->belongs_to(
   "reference_type",
   "PAPS::Database::papsdb::Schema::Result::ReferenceType",
   { id => "reference_type_id" },
-  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+  { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
 );
 
 =head2 referenced_work
@@ -173,11 +173,41 @@ __PACKAGE__->belongs_to(
   "PAPS::Database::papsdb::Schema::Result::Work",
   { work_id => "referenced_work_id" },
   {
-    is_deferrable => 1,
+    is_deferrable => 0,
     join_type     => "LEFT",
-    on_delete     => "CASCADE",
-    on_update     => "CASCADE",
+    on_delete     => "NO ACTION",
+    on_update     => "NO ACTION",
   },
+);
+
+=head2 referenced_work_guesses_guessed_referenced_works
+
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::ReferencedWorkGuess>
+
+=cut
+
+__PACKAGE__->has_many(
+  "referenced_work_guesses_guessed_referenced_works",
+  "PAPS::Database::papsdb::Schema::Result::ReferencedWorkGuess",
+  { "foreign.guessed_referenced_work_id" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 referenced_work_guesses_work_references
+
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::ReferencedWorkGuess>
+
+=cut
+
+__PACKAGE__->has_many(
+  "referenced_work_guesses_work_references",
+  "PAPS::Database::papsdb::Schema::Result::ReferencedWorkGuess",
+  { "foreign.work_reference_id" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
 );
 
 =head2 referencing_work
@@ -192,12 +222,12 @@ __PACKAGE__->belongs_to(
   "referencing_work",
   "PAPS::Database::papsdb::Schema::Result::Work",
   { work_id => "referencing_work_id" },
-  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+  { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-01-15 22:01:15
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:U8Vl7XxWwVvoFlg+4eeqrQ
+# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-03-17 17:29:04
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ymp7+NJrjn8qZ5Im5SGdbQ
 
 =head1 Helper Methods
 

@@ -191,10 +191,10 @@ __PACKAGE__->belongs_to(
   "PAPS::Database::papsdb::Schema::Result::Metawork",
   { id => "meta_work_id" },
   {
-    is_deferrable => 1,
+    is_deferrable => 0,
     join_type     => "LEFT",
-    on_delete     => "CASCADE",
-    on_update     => "CASCADE",
+    on_delete     => "NO ACTION",
+    on_update     => "NO ACTION",
   },
 );
 
@@ -375,7 +375,7 @@ __PACKAGE__->belongs_to(
   "work_type",
   "PAPS::Database::papsdb::Schema::Result::WorkType",
   { work_type_id => "work_type_id" },
-  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+  { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
 );
 
 =head2 categories
@@ -409,8 +409,8 @@ Composing rels: L</source_work_tags> -> tag
 __PACKAGE__->many_to_many("tags_2s", "source_work_tags", "tag");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-03-08 21:24:03
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:luh0/VOCIrdyAHL3wZ6k7w
+# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-03-17 17:29:04
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:0lZZzItIivmmAiyuG4tEsw
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

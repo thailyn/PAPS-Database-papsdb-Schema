@@ -149,7 +149,7 @@ __PACKAGE__->belongs_to(
   "file_type",
   "PAPS::Database::papsdb::Schema::Result::FileType",
   { id => "file_type_id" },
-  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+  { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
 );
 
 =head2 source_files
@@ -180,10 +180,10 @@ __PACKAGE__->belongs_to(
   "PAPS::Database::papsdb::Schema::Result::Permission",
   { id => "user_permission_id" },
   {
-    is_deferrable => 1,
+    is_deferrable => 0,
     join_type     => "LEFT",
-    on_delete     => "CASCADE",
-    on_update     => "CASCADE",
+    on_delete     => "NO ACTION",
+    on_update     => "NO ACTION",
   },
 );
 
@@ -199,12 +199,12 @@ __PACKAGE__->belongs_to(
   "work",
   "PAPS::Database::papsdb::Schema::Result::Work",
   { work_id => "work_id" },
-  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+  { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07015 @ 2012-01-15 22:01:14
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:QVBJc7IKnOG6Tyv5IRanHg
+# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-03-17 17:29:03
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:i/T6EBNzva0CSjtEC9mGNQ
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
