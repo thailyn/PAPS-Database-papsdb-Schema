@@ -147,6 +147,8 @@ __PACKAGE__->set_primary_key("id");
 
 =item * L</guessed_referenced_work_id>
 
+=item * L</user_id>
+
 =item * L</algorithm_id>
 
 =item * L</version>
@@ -157,7 +159,12 @@ __PACKAGE__->set_primary_key("id");
 
 __PACKAGE__->add_unique_constraint(
   "unique__referenced_work_guesses__guessed_referenced_work_algori",
-  ["guessed_referenced_work_id", "algorithm_id", "version"],
+  [
+    "guessed_referenced_work_id",
+    "user_id",
+    "algorithm_id",
+    "version",
+  ],
 );
 
 =head1 RELATIONS
@@ -223,8 +230,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-03-17 17:29:04
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:abjQbIeaBQoMRS8BcI+Ysg
+# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-03-17 22:33:37
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ZChPaNENahjyi/PxjPxbgg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
