@@ -154,9 +154,24 @@ __PACKAGE__->belongs_to(
   { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
 );
 
+=head2 work_references
 
-# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-03-22 20:27:19
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:DTMG/9DVBovyPLik6aN5+Q
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::WorkReference>
+
+=cut
+
+__PACKAGE__->has_many(
+  "work_references",
+  "PAPS::Database::papsdb::Schema::Result::WorkReference",
+  { "foreign.persona_id" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-03-22 22:01:28
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:0p14y2jkcBftZv+1eMSupA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

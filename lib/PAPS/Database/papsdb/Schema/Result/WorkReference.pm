@@ -82,6 +82,19 @@ __PACKAGE__->table("work_references");
   data_type: 'text'
   is_nullable: 1
 
+=head2 persona_id
+
+  data_type: 'integer'
+  is_foreign_key: 1
+  is_nullable: 1
+
+=head2 modified
+
+  data_type: 'timestamp with time zone'
+  default_value: current_timestamp
+  is_nullable: 0
+  original: {default_value => \"now()"}
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -104,6 +117,15 @@ __PACKAGE__->add_columns(
   { data_type => "smallint", is_nullable => 1 },
   "reference_text",
   { data_type => "text", is_nullable => 1 },
+  "persona_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
+  "modified",
+  {
+    data_type     => "timestamp with time zone",
+    default_value => \"current_timestamp",
+    is_nullable   => 0,
+    original      => { default_value => \"now()" },
+  },
 );
 
 =head1 PRIMARY KEY
@@ -144,6 +166,26 @@ __PACKAGE__->add_unique_constraint(
 );
 
 =head1 RELATIONS
+
+=head2 persona
+
+Type: belongs_to
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::Persona>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "persona",
+  "PAPS::Database::papsdb::Schema::Result::Persona",
+  { id => "persona_id" },
+  {
+    is_deferrable => 0,
+    join_type     => "LEFT",
+    on_delete     => "NO ACTION",
+    on_update     => "NO ACTION",
+  },
+);
 
 =head2 reference_type
 
@@ -226,8 +268,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-03-17 17:29:04
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ymp7+NJrjn8qZ5Im5SGdbQ
+# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-03-22 22:01:29
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:X5HCtTsQH4T0NUvWqWJlMg
 
 =head1 Helper Methods
 
