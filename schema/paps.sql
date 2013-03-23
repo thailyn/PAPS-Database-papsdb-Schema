@@ -429,3 +429,13 @@ CREATE TABLE referenced_work_guesses (
 
   CONSTRAINT unique__referenced_work_guesses__guessed_referenced_work_algorithm_version_user UNIQUE(guessed_referenced_work_id, user_id, algorithm_id, version)
 );
+
+DROP TABLE IF EXISTS personas CASCADE;
+CREATE TABLE personas (
+  id SERIAL PRIMARY KEY,
+  user_id INT NOT NULL REFERENCES users(id),
+  algorithm_id INT NOT NULL REFERENCES algorithms(id),
+  version varchar NOT NULL,
+
+  CONSTRAINT unique__personas__user_algorithm_version UNIQUE(user_id, algorithm_id, version)
+);
