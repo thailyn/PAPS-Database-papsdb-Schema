@@ -113,6 +113,21 @@ __PACKAGE__->add_unique_constraint("unique__algorithms__name", ["name"]);
 
 =head1 RELATIONS
 
+=head2 personas
+
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::Persona>
+
+=cut
+
+__PACKAGE__->has_many(
+  "personas",
+  "PAPS::Database::papsdb::Schema::Result::Persona",
+  { "foreign.algorithm_id" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 referenced_work_guesses
 
 Type: has_many
@@ -129,8 +144,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-03-17 17:29:03
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:IV0RMYXbfSGhGbE0tOYkkw
+# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-03-22 20:27:18
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:y6Z4q4kRXl5IkhvZw1VqFA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
