@@ -32,6 +32,15 @@ DROP TABLE IF EXISTS source_files CASCADE;
 -- Create the tables.  Required to, of course, create tables that are
 -- referenced before the tables that reference them.
 
+DROP TABLE IF EXISTS algorithms CASCADE;
+CREATE TABLE algorithms (
+  id SERIAL PRIMARY KEY,
+  name varchar NOT NULL,
+  description varchar NULL,
+
+  CONSTRAINT unique__algorithms__name UNIQUE(name)
+);
+
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   name varchar NOT NULL,
@@ -405,16 +414,6 @@ CREATE TABLE collection_works (
 
   PRIMARY KEY(collection_id, work_id)
 );
-
-DROP TABLE IF EXISTS algorithms CASCADE;
-CREATE TABLE algorithms (
-  id SERIAL PRIMARY KEY,
-  name varchar NOT NULL,
-  description varchar NULL,
-
-  CONSTRAINT unique__algorithms__name UNIQUE(name)
-);
-
 
 DROP TABLE IF EXISTS referenced_work_guesses CASCADE;
 CREATE TABLE referenced_work_guesses (
