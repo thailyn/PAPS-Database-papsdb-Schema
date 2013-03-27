@@ -176,7 +176,8 @@ CREATE TABLE work_references ( -- or, 'citations'
   persona_id INT NOT NULL REFERENCES personas (id),
   modified TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-  CONSTRAINT unique__work_references__referenced_referencing_type UNIQUE(referencing_work_id, referenced_work_id, reference_type_id)
+  CONSTRAINT unique__work_references__referenced_referencing_type UNIQUE(referencing_work_id, referenced_work_id, reference_type_id),
+  CONSTRAINT unique__work_references__referencing_type_chapter_rank UNIQUE(referencing_work_id, reference_type_id, chapter, rank)
 );
 
 CREATE TABLE file_types (
