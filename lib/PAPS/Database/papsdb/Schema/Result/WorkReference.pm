@@ -165,6 +165,27 @@ __PACKAGE__->add_unique_constraint(
   ],
 );
 
+=head2 C<unique__work_references__referencing_type_chapter_rank>
+
+=over 4
+
+=item * L</referencing_work_id>
+
+=item * L</reference_type_id>
+
+=item * L</chapter>
+
+=item * L</rank>
+
+=back
+
+=cut
+
+__PACKAGE__->add_unique_constraint(
+  "unique__work_references__referencing_type_chapter_rank",
+  ["referencing_work_id", "reference_type_id", "chapter", "rank"],
+);
+
 =head1 RELATIONS
 
 =head2 persona
@@ -268,8 +289,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-03-22 22:01:29
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:X5HCtTsQH4T0NUvWqWJlMg
+# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-03-26 21:30:52
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:1rqaBHYaD9MhqkrNmkmRzw
 
 =head1 Helper Methods
 
