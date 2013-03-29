@@ -440,5 +440,5 @@ CREATE TABLE referenced_work_guesses (
   version varchar NULL,
   last_checked timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-  CONSTRAINT unique__referenced_work_guesses__guessed_referenced_work_algorithm_version_user UNIQUE(guessed_referenced_work_id, user_id, algorithm_id, version)
+  CONSTRAINT unique__referenced_work_guesses__work_reference_algorithm_version_user UNIQUE(work_reference_id, user_id, algorithm_id, version)
 );
