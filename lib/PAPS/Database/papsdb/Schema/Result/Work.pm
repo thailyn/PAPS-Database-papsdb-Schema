@@ -198,6 +198,21 @@ __PACKAGE__->belongs_to(
   },
 );
 
+=head2 referenced_work_guesses
+
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::ReferencedWorkGuess>
+
+=cut
+
+__PACKAGE__->has_many(
+  "referenced_work_guesses",
+  "PAPS::Database::papsdb::Schema::Result::ReferencedWorkGuess",
+  { "foreign.guessed_referenced_work_id" => "self.work_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 source_work_categories
 
 Type: has_many
@@ -409,8 +424,8 @@ Composing rels: L</source_work_tags> -> tag
 __PACKAGE__->many_to_many("tags_2s", "source_work_tags", "tag");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-03-17 17:29:04
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:0lZZzItIivmmAiyuG4tEsw
+# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-03-30 15:03:04
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:kcZd56a68IxTOj0IEogFVQ
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

@@ -57,7 +57,7 @@ __PACKAGE__->table("referenced_work_guesses");
 
 =head2 guessed_referenced_work_id
 
-  data_type: 'bigint'
+  data_type: 'integer'
   is_foreign_key: 1
   is_nullable: 0
 
@@ -105,7 +105,7 @@ __PACKAGE__->add_columns(
   "work_reference_id",
   { data_type => "bigint", is_foreign_key => 1, is_nullable => 0 },
   "guessed_referenced_work_id",
-  { data_type => "bigint", is_foreign_key => 1, is_nullable => 0 },
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
   "confidence",
   { data_type => "real", default_value => 0, is_nullable => 0 },
   "user_id",
@@ -183,14 +183,14 @@ __PACKAGE__->belongs_to(
 
 Type: belongs_to
 
-Related object: L<PAPS::Database::papsdb::Schema::Result::WorkReference>
+Related object: L<PAPS::Database::papsdb::Schema::Result::Work>
 
 =cut
 
 __PACKAGE__->belongs_to(
   "guessed_referenced_work",
-  "PAPS::Database::papsdb::Schema::Result::WorkReference",
-  { id => "guessed_referenced_work_id" },
+  "PAPS::Database::papsdb::Schema::Result::Work",
+  { work_id => "guessed_referenced_work_id" },
   { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
 );
 
@@ -225,8 +225,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-03-29 18:45:32
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:9ogZmPbo/+d2kx7wn/5DNw
+# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-03-30 15:03:04
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:PvKMmSCTou/ZGCFV1OT+yg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

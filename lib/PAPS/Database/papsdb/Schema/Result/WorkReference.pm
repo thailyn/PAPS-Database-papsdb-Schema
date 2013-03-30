@@ -243,7 +243,7 @@ __PACKAGE__->belongs_to(
   },
 );
 
-=head2 referenced_work_guesses_guessed_referenced_works
+=head2 referenced_work_guesses
 
 Type: has_many
 
@@ -252,22 +252,7 @@ Related object: L<PAPS::Database::papsdb::Schema::Result::ReferencedWorkGuess>
 =cut
 
 __PACKAGE__->has_many(
-  "referenced_work_guesses_guessed_referenced_works",
-  "PAPS::Database::papsdb::Schema::Result::ReferencedWorkGuess",
-  { "foreign.guessed_referenced_work_id" => "self.id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-=head2 referenced_work_guesses_work_references
-
-Type: has_many
-
-Related object: L<PAPS::Database::papsdb::Schema::Result::ReferencedWorkGuess>
-
-=cut
-
-__PACKAGE__->has_many(
-  "referenced_work_guesses_work_references",
+  "referenced_work_guesses",
   "PAPS::Database::papsdb::Schema::Result::ReferencedWorkGuess",
   { "foreign.work_reference_id" => "self.id" },
   { cascade_copy => 0, cascade_delete => 0 },
@@ -289,8 +274,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-03-26 21:30:52
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:1rqaBHYaD9MhqkrNmkmRzw
+# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-03-30 15:03:04
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:IttVQ7rYUCURQi/aBiE9ZA
 
 =head1 Helper Methods
 
