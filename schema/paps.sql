@@ -433,7 +433,7 @@ DROP TABLE IF EXISTS referenced_work_guesses CASCADE;
 CREATE TABLE referenced_work_guesses (
   id SERIAL PRIMARY KEY,
   work_reference_id BIGINT NOT NULL REFERENCES work_references(id),
-  guessed_referenced_work_id BIGINT NOT NULL REFERENCES work_references(id),
+  guessed_referenced_work_id INT NOT NULL REFERENCES works(work_id),
   confidence REAL NOT NULL DEFAULT 0,
   user_id INT NOT NULL REFERENCES users(id),
   algorithm_id INT NOT NULL REFERENCES algorithms(id),
