@@ -1,10 +1,49 @@
 Revision history for PAPS-Database-papsdb-Schema
 
+0.007  Sun Mar 31 13:29:56 2013 -0400
+  New features:
+    - Added table algorithms, to store known algorithms which work on the data
+      in the database.  This, along with an optional version number, will
+      provide information about how decisions were made to make changes.
+    - Added table personas.  A record in this table uniquely identifies a user
+      and an algorithm, with an optional version number.  This should be used
+      instead of a user id when tracking changes, to allow different versions
+      of an algorithm to make different changes, and to identify how (that is,
+      by what algorithm) changes were made.
+    - Added table referenced_work_guesses, to keep track of guesses for what
+      works are being referenced by a work reference, when no official
+      referenced work is known.  The persona (user, algorithm, and version
+      combination) that made the guess, and the last time that guess was
+      checked, are stored with the guess.  A persona can only make a single
+      guess for a work reference (although a different user can use the same
+      algorithm and version to make a guess, and the same user and algorithm
+      can make a guess with a different version).  Typically, two different
+      users will not use the same algorithm and version to make a guess, but
+      humans making manual guesses will not have an algorithm (or all have the
+      same algorithm).
+    - Added a persona_id and a modified column to the work_references table.
+      This will allow keeping track of what persona made changes to this
+      table.  For example, it will allow knowing what script added references
+      for a work (e.g., PAPS-Refs-Importer).
+    - Added a unique constraint to the work_references table on
+      (referencing_work, type, chapter, rank).  This will make it easier to
+      uniquely identify a record for a work's reference.
+  Bug fixes:
+    - Removed shebang line from the recreate-schema script.  This does not
+      allow using a custom version of Perl (e.g., via PerlBrew) to run the
+      script.
+  Other:
+    - Explicitly stated additional requirements in the Makefile, including
+      some DBIx and Moose/MooseX modules.
+    - Updated schema to DBIx-Class-Schema-Loader-0.07035.  Noticeable changes
+      include making on_delete and on_update triggers default to "NO ACTION",
+      instead of "CASCADE", and is_deferrable to 0, not 1.
+
 0.006  Sat May 5 15:55:00 2012 -0400
   New features:
     - Added tables collections and collection_works, for storing collections
       and mapping works into collections, respectively.
-    - Added view result set WorkToRead, whcih returns a set of works and user
+    - Added view result set WorkToRead, which returns a set of works and user
       work data.  The set returned consists of all the works referencing a
       work (indicated by a parameter), recursively continuing through the
       references relationship, with an indicated user's work data (the user is
