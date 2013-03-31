@@ -67,30 +67,18 @@ __PACKAGE__->table("referenced_work_guesses");
   default_value: 0
   is_nullable: 0
 
-=head2 user_id
-
-  data_type: 'integer'
-  is_foreign_key: 1
-  is_nullable: 0
-
-=head2 algorithm_id
-
-  data_type: 'integer'
-  is_foreign_key: 1
-  is_nullable: 0
-
-=head2 version
-
-  data_type: 'text'
-  is_nullable: 1
-  original: {data_type => "varchar"}
-
 =head2 last_checked
 
   data_type: 'timestamp with time zone'
   default_value: current_timestamp
   is_nullable: 0
   original: {default_value => \"now()"}
+
+=head2 persona_id
+
+  data_type: 'integer'
+  is_foreign_key: 1
+  is_nullable: 0
 
 =cut
 
@@ -108,16 +96,6 @@ __PACKAGE__->add_columns(
   { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
   "confidence",
   { data_type => "real", default_value => 0, is_nullable => 0 },
-  "user_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "algorithm_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "version",
-  {
-    data_type   => "text",
-    is_nullable => 1,
-    original    => { data_type => "varchar" },
-  },
   "last_checked",
   {
     data_type     => "timestamp with time zone",
@@ -125,6 +103,8 @@ __PACKAGE__->add_columns(
     is_nullable   => 0,
     original      => { default_value => \"now()" },
   },
+  "persona_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
 );
 
 =head1 PRIMARY KEY
@@ -141,43 +121,24 @@ __PACKAGE__->set_primary_key("id");
 
 =head1 UNIQUE CONSTRAINTS
 
-=head2 C<unique__referenced_work_guesses__work_reference_algorithm_versi>
+=head2 C<unique__referenced_work_guesses__work_reference_persona>
 
 =over 4
 
 =item * L</work_reference_id>
 
-=item * L</user_id>
-
-=item * L</algorithm_id>
-
-=item * L</version>
+=item * L</persona_id>
 
 =back
 
 =cut
 
 __PACKAGE__->add_unique_constraint(
-  "unique__referenced_work_guesses__work_reference_algorithm_versi",
-  ["work_reference_id", "user_id", "algorithm_id", "version"],
+  "unique__referenced_work_guesses__work_reference_persona",
+  ["work_reference_id", "persona_id"],
 );
 
 =head1 RELATIONS
-
-=head2 algorithm
-
-Type: belongs_to
-
-Related object: L<PAPS::Database::papsdb::Schema::Result::Algorithm>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "algorithm",
-  "PAPS::Database::papsdb::Schema::Result::Algorithm",
-  { id => "algorithm_id" },
-  { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
-);
 
 =head2 guessed_referenced_work
 
@@ -194,18 +155,18 @@ __PACKAGE__->belongs_to(
   { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
 );
 
-=head2 user
+=head2 persona
 
 Type: belongs_to
 
-Related object: L<PAPS::Database::papsdb::Schema::Result::User>
+Related object: L<PAPS::Database::papsdb::Schema::Result::Persona>
 
 =cut
 
 __PACKAGE__->belongs_to(
-  "user",
-  "PAPS::Database::papsdb::Schema::Result::User",
-  { id => "user_id" },
+  "persona",
+  "PAPS::Database::papsdb::Schema::Result::Persona",
+  { id => "persona_id" },
   { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
 );
 
@@ -225,8 +186,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-03-30 15:03:04
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:PvKMmSCTou/ZGCFV1OT+yg
+# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-03-31 12:05:37
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:EGtXkBuX1b0Lm/tYrRaJMQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

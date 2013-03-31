@@ -139,6 +139,21 @@ __PACKAGE__->belongs_to(
   { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
 );
 
+=head2 referenced_work_guesses
+
+Type: has_many
+
+Related object: L<PAPS::Database::papsdb::Schema::Result::ReferencedWorkGuess>
+
+=cut
+
+__PACKAGE__->has_many(
+  "referenced_work_guesses",
+  "PAPS::Database::papsdb::Schema::Result::ReferencedWorkGuess",
+  { "foreign.persona_id" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 user
 
 Type: belongs_to
@@ -170,8 +185,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-03-22 22:01:28
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:0p14y2jkcBftZv+1eMSupA
+# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-03-31 12:05:37
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:2Ut+d4XN146mAxkg0VTZow
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

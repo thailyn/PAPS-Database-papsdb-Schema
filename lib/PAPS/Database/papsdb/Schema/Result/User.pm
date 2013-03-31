@@ -228,21 +228,6 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
-=head2 referenced_work_guesses
-
-Type: has_many
-
-Related object: L<PAPS::Database::papsdb::Schema::Result::ReferencedWorkGuess>
-
-=cut
-
-__PACKAGE__->has_many(
-  "referenced_work_guesses",
-  "PAPS::Database::papsdb::Schema::Result::ReferencedWorkGuess",
-  { "foreign.user_id" => "self.id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 user_permissions
 
 Type: has_many
@@ -294,8 +279,8 @@ Composing rels: L</user_permissions> -> permission
 __PACKAGE__->many_to_many("permissions", "user_permissions", "permission");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-03-22 20:27:19
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:TEv5tzbliMCpVC8H0uhkyQ
+# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-03-31 12:05:37
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ORtoTHriceUgw2PfwhHDvA
 
 =head2 columns
 

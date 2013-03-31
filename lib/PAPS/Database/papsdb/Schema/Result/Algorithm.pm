@@ -128,24 +128,9 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
-=head2 referenced_work_guesses
 
-Type: has_many
-
-Related object: L<PAPS::Database::papsdb::Schema::Result::ReferencedWorkGuess>
-
-=cut
-
-__PACKAGE__->has_many(
-  "referenced_work_guesses",
-  "PAPS::Database::papsdb::Schema::Result::ReferencedWorkGuess",
-  { "foreign.algorithm_id" => "self.id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-
-# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-03-22 20:27:18
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:y6Z4q4kRXl5IkhvZw1VqFA
+# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-03-31 12:05:37
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:EU9O8E5WXx04a8+WkQnkCA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
