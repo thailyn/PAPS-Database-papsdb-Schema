@@ -435,10 +435,8 @@ CREATE TABLE referenced_work_guesses (
   work_reference_id BIGINT NOT NULL REFERENCES work_references(id),
   guessed_referenced_work_id INT NOT NULL REFERENCES works(work_id),
   confidence REAL NOT NULL DEFAULT 0,
-  user_id INT NOT NULL REFERENCES users(id),
-  algorithm_id INT NOT NULL REFERENCES algorithms(id),
-  version varchar NULL,
+  persona_id INT NOT NULL REFERENCES personas (id),
   last_checked timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-  CONSTRAINT unique__referenced_work_guesses__work_reference_algorithm_version_user UNIQUE(work_reference_id, user_id, algorithm_id, version)
+  CONSTRAINT unique__referenced_work_guesses__work_reference_persona UNIQUE(work_reference_id, persona_id)
 );
